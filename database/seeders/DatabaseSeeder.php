@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +15,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->truncateTables([
+            'materias',
+            'alumnos',
+        ]);
+
+        // Ejecutar los seeders:
+        $this->call(MateriasSeeder::class);
+    }
+
+
+    public function truncateTables(array $tables)
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        foreach ($tables as $table) {
+            DB::table($table)->truncate();
+        }
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }
