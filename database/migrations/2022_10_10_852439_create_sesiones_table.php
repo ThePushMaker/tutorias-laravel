@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('sesiones', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha_reunion');
+            $table->time('hora_reunion');
+            $table->string('enlace_reunion');
+            $table->string('mensaje')->nullable();
             $table->timestamps();
+
+            $table->unsignedBigInteger('tutoria_id');
+            $table->foreign('tutoria_id')->references('id')->on('tutorias_disponibles')->onDelete("cascade")->cascadeOnUpdate();
         });
     }
 

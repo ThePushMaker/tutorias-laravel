@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
+            $table->string('emisor');
+            $table->string('receptor');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('contenido');
             $table->timestamps();
         });
     }
