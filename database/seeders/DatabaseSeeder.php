@@ -16,17 +16,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->truncateTables([
+        $this->truncateTables([//primero vacia las tablas
             'materias',
             'alumnos',
         ]);
 
         // Ejecutar los seeders:
         $this->call(MateriasSeeder::class);
+        $this->call(AlumnosSeeder::class);
+        
     }
 
 
-    public function truncateTables(array $tables)
+    public function truncateTables(array $tables)//para eliminarlas hay que deshabilitar claves foraneas, eliminar y luego volverlas a activar
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         foreach ($tables as $table) {

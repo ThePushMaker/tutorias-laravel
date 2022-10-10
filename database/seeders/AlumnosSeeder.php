@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Alumnos;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,6 @@ class AlumnosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('alumnos')->insert([
-            'title' => 'Desarrollador back-end',
-        ]);
+        Alumnos::factory(48)->create();
     }
 }
