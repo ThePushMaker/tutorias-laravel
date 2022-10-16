@@ -18,6 +18,8 @@ class Alumnos extends Model
         'numero_control',
     ];
 
+    
+
     // public function ciudad(){
     //     return $this->hasOne(City::class,'id','city');
     // }

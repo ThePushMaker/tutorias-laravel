@@ -18,12 +18,14 @@ class AlumnosFactory extends Factory
     {
         return [
             'nombre' =>  fake()->name(),
-            'correo' =>  fake()->unique()->safeEmail(),
-            'contraseña' =>  fake()->password(),
-            'rango' => fake()->randomElement(['Alumno', 'Tutor']),
-            'cuenta_activa' =>  fake()->boolean(),
+            'correo' => preg_replace('/@example\..*/', '@alu.uabcs.mx', fake()->unique()->safeEmail()),
+            // 'contraseña' =>  fake()->password(),
+            'contraseña' => fake()->password(),
+            'tipo_cuenta' => fake()->randomElement(['Alumno', 'Tutor']),
+            'estado_cuenta' =>  fake()->randomElement(['Activa', 'Inactiva']),
             'semestre' =>  fake()->numberBetween($min = 1, $max = 9),
             'numero_control' => fake()->unique()->numerify('2022######'),
+            // 'avatar' => $faker->imageUrl,
         ];
     }
 }

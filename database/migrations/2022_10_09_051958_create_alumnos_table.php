@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nombre',60);
             $table->string('correo',60)->unique();
             $table->string('contraseña',30);
-            $table->set('rango', ['Alumno', 'Tutor'])->default('Alumno');
-            $table->boolean('cuenta_activa');//estado de cuenta
+            $table->set('tipo_cuenta', ['Alumno', 'Tutor'])->default('Alumno');
+            $table->set('estado_cuenta', ['Activa', 'Inactiva'])->default('Activa');
             $table->integer('semestre');
             $table->string('numero_control',10)->unique();
             $table->timestamps();
