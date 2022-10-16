@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('horario_pref_sesiones');
             $table->integer('alumnos_inscritos');//a la tutoria 
             $table->integer('capacidad_maxima');//de alumnos 
+            $table->boolean('estado_activa');//1 = activa, 0 = inactiva 
             $table->timestamps();
             
             $table->unsignedBigInteger('tutor_id');

@@ -19,11 +19,13 @@ class DatabaseSeeder extends Seeder
         $this->truncateTables([//primero vacia las tablas
             'materias',
             'alumnos',
+            'maestros',
         ]);
 
         // Ejecutar los seeders:
         $this->call(MateriasSeeder::class);
         $this->call(AlumnosSeeder::class);
+        $this->call(MaestrosSeeder::class);
         
     }
 

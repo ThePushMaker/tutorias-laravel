@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
-            $table->string('emisor');
-            $table->string('receptor');
             $table->date('fecha');
             $table->time('hora');
             $table->string('contenido');
             $table->timestamps();
+
+            $table->unsignedBigInteger('emisor_id');
+            $table->foreign('emisor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
+            $table->unsignedBigInteger('receptor_id');
+            $table->foreign('receptor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
         });
     }
 

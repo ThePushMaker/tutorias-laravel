@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Maestros>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\materias_maestros>
  */
-class MaestrosFactory extends Factory
+class MateriasMaestrosFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class MaestrosFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' =>  fake()->name(),
-            'correo' =>  fake()->unique()->safeEmail(),
-            'contraseña' =>  fake()->password(),
+            //
         ];
     }
 }

@@ -12,10 +12,17 @@ class Alumnos extends Model
         'nombre',
         'correo',
         'contraseña',
-        'rango_tutor',
+        'rango',
         'cuenta_activa',
         'semestre',
         'numero_control',
-        'descripcion',
     ];
+
+    // public function ciudad(){
+    //     return $this->hasOne(City::class,'id','city');
+    // }
+
+    // public function pets(){
+    //     return $this->hasMany(Pet::class,'client_id','id');
+    // }
 }

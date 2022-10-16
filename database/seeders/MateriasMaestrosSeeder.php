@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Maestros;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MaestrosSeeder extends Seeder
+class MateriasMaestrosSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class MaestrosSeeder extends Seeder
      */
     public function run()
     {
-        Maestros::factory(50)->create();
+        //
     }
 }

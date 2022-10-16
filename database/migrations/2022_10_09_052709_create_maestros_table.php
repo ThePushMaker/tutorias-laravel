@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->string('contraseña');
             $table->timestamps();
+
         });
     }
 

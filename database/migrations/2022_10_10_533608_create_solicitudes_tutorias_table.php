@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('solicitudes_tutorias', function (Blueprint $table) {
             $table->id();
+            $table->string('comentario')->nullable();
             $table->integer('promedio_obtenido');//cuando la cursó el tutor
-            $table->boolean('revisada');//por un maestro
-            $table->boolean('aprobada')->nullable();//esto debe estar null si aun no es revisada la solicitud
+            $table->set('estados', ['Pendiente', 'Aceptada','Rechazada'])->default('Pendiente');
             $table->timestamps();
+
+            $table->unsignedBigInteger('materia_id');
+            $table->foreign('materia_id')->references('id')->on('materias')->onDelete("cascade")->cascadeOnUpdate();
+
 
             $table->unsignedBigInteger('tutor_id');
             $table->foreign('tutor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();//cuenta tutor

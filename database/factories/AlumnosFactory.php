@@ -20,11 +20,10 @@ class AlumnosFactory extends Factory
             'nombre' =>  fake()->name(),
             'correo' =>  fake()->unique()->safeEmail(),
             'contraseña' =>  fake()->password(),
-            'rango_tutor' =>  fake()->boolean(),
+            'rango' => fake()->randomElement(['Alumno', 'Tutor']),
             'cuenta_activa' =>  fake()->boolean(),
-            'semestre' =>  fake()->numberBetween($min = 1, $max = 12),
-            'numero_control' => fake()->numerify('2022######'),
-            'descripcion' => fake()->paragraph(),
+            'semestre' =>  fake()->numberBetween($min = 1, $max = 9),
+            'numero_control' => fake()->unique()->numerify('2022######'),
         ];
     }
 }
