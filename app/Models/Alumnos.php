@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alumnos extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    protected $fillable = [//los campos que se va a permitir que se asignen masivamente
         'nombre',
         'correo',
         'contraseña',
@@ -16,6 +16,11 @@ class Alumnos extends Model
         'cuenta_activa',
         'semestre',
         'numero_control',
+    ];
+    
+    protected $hidden=[ //los datos que no queremos que se envíen por el controlador de la api
+        'created_at',
+        'updated_at',
     ];
 
     

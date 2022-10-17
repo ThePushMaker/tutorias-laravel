@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarAlumnoRequest;
 use App\Models\Alumnos;
 use Illuminate\Http\Request;
+use Nette\Utils\Json;
 
 class AlumnoController extends Controller
 {
@@ -14,7 +16,12 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        //
+        return Alumnos::all();
+        // $blogs = Alumnos::latest()->paginate(10);
+        // return [
+        //     "status" => 1,
+        //     "data" => $blogs
+        // ];
     }
 
     /**
@@ -33,9 +40,13 @@ class AlumnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarAlumnoRequest $request)
     {
-        //
+        Alumnos::create($request->all());
+        return response()->json([
+            'res'=>true,
+            'msg'=> "Alumno guardado correctamente"
+        ]);
     }
 
     /**
@@ -82,15 +93,4 @@ class AlumnoController extends Controller
     {
         //
     }
-
-    // public function list(){
-    //     $client = Alumnos::get();
-
-    //     dd($client);
-
-    //     return response([
-    //         'status' => true,
-    //         'clients' => $client
-    //     ]);
-    // }
 }
