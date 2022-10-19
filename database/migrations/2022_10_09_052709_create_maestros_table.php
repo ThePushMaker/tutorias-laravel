@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('correo')->unique();
             $table->string('contraseña');
+            $table->set('estado_cuenta', ['Activa', 'Inactiva'])->default('Activa');
             $table->timestamps();
 
         });

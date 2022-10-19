@@ -13,9 +13,9 @@ class Alumnos extends Model
         'correo',
         'contraseña',
         'rango',
-        'cuenta_activa',
+        'estado_cuenta',
         'semestre',
-        'numero_control',
+        'numero_control'
     ];
     
     protected $hidden=[ //los datos que no queremos que se envíen por el controlador de la api

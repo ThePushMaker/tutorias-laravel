@@ -18,8 +18,9 @@ class MaestrosFactory extends Factory
     {
         return [
             'nombre' =>  fake()->name(),
-            'correo' =>  fake()->unique()->safeEmail(),
+            'correo' => preg_replace('/@example\..*/', '@uabcs.mx', fake()->unique()->safeEmail()),
             'contraseña' =>  fake()->password(),
+            'estado_cuenta' =>  fake()->randomElement(['Activa', 'Inactiva']),
         ];
     }
 }

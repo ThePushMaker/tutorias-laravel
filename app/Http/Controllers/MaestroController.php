@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ActualizarAlumnoRequest;
-use App\Http\Requests\GuardarAlumnoRequest;
-use App\Models\Alumnos;
+use App\Http\Requests\GuardarMaestroRequest;
+use App\Models\Maestros;
 use Illuminate\Http\Request;
 
-class AlumnoController extends Controller
+class MaestroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +15,7 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        return Alumnos::all();
-        // $blogs = Alumnos::latest()->paginate(10);
-        // return [
-        //     "status" => 1,
-        //     "data" => $blogs
-        // ];
+        return Maestros::all();
     }
 
     /**
@@ -31,7 +25,7 @@ class AlumnoController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -40,13 +34,13 @@ class AlumnoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GuardarAlumnoRequest $request)
+    public function store(GuardarMaestroRequest $request)
     {
-        Alumnos::create($request->all());
+        Maestros::create($request->all());
         return response()->json([
             'res'=>true,
-            'msg'=> "Alumno guardado correctamente"
-        ],200);
+            'msg'=> "Maestro guardado correctamente"
+        ]);
     }
 
     /**
@@ -55,12 +49,9 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Alumnos $alumno)
+    public function show($id)
     {
-        return response()->json([
-            'res'=>true,
-            'alumno'=>$alumno
-        ],200);
+        //
     }
 
     /**
@@ -81,13 +72,9 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ActualizarAlumnoRequest $request, Alumnos $alumno)
+    public function update(Request $request, $id)
     {
-        $alumno->update($request->all());
-        return response()->json([
-            'res'=>true,
-            'mensaje'=>'alumno actualizado correctamente'
-        ],200);
+        //
     }
 
     /**
@@ -96,12 +83,8 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumnos $alumno)
+    public function destroy($id)
     {
-        $alumno->delete();
-        return response()->json([
-            'res'=>true,
-            'mensaje'=>'paciente eliminado correctamente'
-        ],200);
+        //
     }
 }
