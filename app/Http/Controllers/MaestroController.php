@@ -15,7 +15,13 @@ class MaestroController extends Controller
      */
     public function index()
     {
-        return Maestros::all();
+        // return Maestros::all();
+        $maestros = Maestros::get();
+
+        return response([
+            'status'    => true,
+            'maestros' => $maestros
+        ]);
     }
 
     /**

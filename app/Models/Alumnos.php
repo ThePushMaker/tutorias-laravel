@@ -21,6 +21,7 @@ class Alumnos extends Model
     protected $hidden=[ //los datos que no queremos que se envíen por el controlador de la api
         'created_at',
         'updated_at',
+        'contraseña',
     ];
 
     

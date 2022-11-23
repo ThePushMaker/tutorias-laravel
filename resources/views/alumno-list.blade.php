@@ -18,7 +18,8 @@
         </div>
         <div class="card-body pt-0">
             <div class="table-responsive scrollbar">
-              
+                <div id=app>
+                </div>
             </div>
         </div>
     </div>

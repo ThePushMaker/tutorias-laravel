@@ -9,6 +9,20 @@ use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
 {
+
+    public function alumnosList(){
+        return view('alumno-list');
+    }
+    public function alumnoUpdate(Alumnos $alumno){
+        return view('alumno-update', compact('alumno'));
+    }
+    public function showOne(Alumnos $alumno){
+        return view('alumno-detalle', compact('alumno'));
+    }
+    public function alumnoCrear(){
+        return view('alumno-crear');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +30,12 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        return Alumnos::all();
-        // $blogs = Alumnos::latest()->paginate(10);
-        // return [
-        //     "status" => 1,
-        //     "data" => $blogs
-        // ];
+        $alumnos = Alumnos::get();
+
+        return response([
+            'status'    => true,
+            'alumnos' => $alumnos
+        ]);
     }
 
     /**
