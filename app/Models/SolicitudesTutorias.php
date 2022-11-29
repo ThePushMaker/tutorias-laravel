@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tutorias_disponibles extends Model
+class SolicitudesTutorias extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'desc_temas_impartir',
-        'horario_pref_sesiones',
-        'alumnos_inscritos',
+        'comentario',
+        'promedio_obtenido',
+        'estado',
         'capacidad_maxima',
         'estado',
-        'tutor_id',
         'materia_id',
-        'solicitud_id'
+        'tutor_id',
+        'maestro_id'
     ];
 }

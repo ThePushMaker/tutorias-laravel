@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Alumnos;
+use App\Models\Maestros;
+use App\Models\Materias;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,12 @@ class SolicitudesTutoriasFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'comentario' =>  fake()->paragraph(1),
+            'promedio_obtenido' => fake()->numberBetween(80, 100),
+            'estado' =>  fake()->randomElement(['Pendiente', 'Aceptada', 'Rechazada']),
+            'materia_id' =>  Materias::all()->random()->id,
+            'tutor_id' =>  Alumnos::all()->random()->id,
+            'maestro_id' =>  Maestros::all()->random()->id,
         ];
     }
 }
