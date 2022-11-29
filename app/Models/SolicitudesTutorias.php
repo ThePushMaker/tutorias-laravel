@@ -13,8 +13,6 @@ class SolicitudesTutorias extends Model
         'comentario',
         'promedio_obtenido',
         'estado',
-        'capacidad_maxima',
-        'estado',
         'materia_id',
         'tutor_id',
         'maestro_id'

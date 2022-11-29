@@ -13,7 +13,7 @@ class ActualizarAlumnoTutoriaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ActualizarAlumnoTutoriaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'alumno_id' => "required",
+            'tutoria_id' => "required",
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActualizarMateriaRequest;
+use App\Http\Requests\GuardarMateriaRequest;
 use App\Models\Materias;
 use Illuminate\Http\Request;
 
@@ -38,9 +40,26 @@ class MateriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarMateriaRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $materia = Materias::create([
+            'nombre'         => $data['nombre'],
+            'descripcion'    => $data['descripcion'],
+        ]);
+
+        if($materia){
+            return response([
+                'status'   => true,
+                'materia' => $materia,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar guardar la materia'
+            ]);
+        }
     }
 
     /**
@@ -49,9 +68,21 @@ class MateriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Materias $materia)
     {
-        //
+        $materia = Materias::where('id', $materia->id)->get();
+
+        if($materia){
+            return response([
+                'status'    => true,
+                'materia'   => $materia
+            ]);
+        }else{
+            return response([
+                'status'=> true,
+                'msg'   => 'No se pudo encontrar la información de la materia'
+            ]); 
+        }
     }
 
     /**
@@ -72,9 +103,31 @@ class MateriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarMateriaRequest $request, Materias $materia)
     {
-        //
+        if($materia){
+            $data = $request->all();
+          
+            $materia->nombre        = $data['nombre'];
+            $materia->descripcion   = $data['descripcion'];
+
+            if($materia->save()){
+                return response([
+                    'status'  => true,
+                    'materia' => $materia,
+                ]);
+            }else{
+                return response([
+                    'status' => false,
+                    'msg'    => 'Ocurrio un error al intentar actualizar la materia'
+                ]);
+            }
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'No se pudo obtener la información de la materia'
+            ]);
+        }
     }
 
     /**
@@ -83,7 +136,7 @@ class MateriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($materia)
+    public function destroy(Materias $materia)
     {
         if($materia->delete()){
             return response([

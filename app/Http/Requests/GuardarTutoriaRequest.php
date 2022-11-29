@@ -13,7 +13,7 @@ class GuardarTutoriaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class GuardarTutoriaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'desc_temas_impartir' => "required",
+            'horario_pref_sesiones' => "required",
+            'alumnos_inscritos' => "required",
+            'capacidad_maxima' => "required",
+            'estado' => "required",
+            'materia_id' => "required",
+            'tutor_id' => "required",
+            'solicitud_id' => "required"
         ];
     }
 }

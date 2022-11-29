@@ -71,7 +71,7 @@ class AlumnoController extends Controller
         if($alumno){
             return response([
                 'status'   => true,
-                'sucursal' => $alumno
+                'alumno' => $alumno
             ]);
         }else{
             return response([

@@ -54,7 +54,7 @@ class MaestroController extends Controller
         if($maestro){
             return response([
                 'status'   => true,
-                'sucursal' => $maestro,
+                'maestro' => $maestro,
             ]);
         }else{
             return response([

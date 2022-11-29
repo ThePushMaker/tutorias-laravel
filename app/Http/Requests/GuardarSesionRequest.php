@@ -13,7 +13,7 @@ class GuardarSesionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class GuardarSesionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'fecha_reunion' => "required",
+            'hora_reunion' => "required",
+            'enlace_reunion' => "required",
+            'mensaje' => "nullable",
+            'tutoria_id' => "required"
         ];
     }
 }

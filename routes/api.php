@@ -39,28 +39,28 @@ Route::get('maestros/{maestro}',[MaestroController::class,'show']);
 Route::put('maestros/{maestro}',[MaestroController::class,'update']);
 Route::delete('maestros/{maestro}',[MaestroController::class,'destroy']);
 
-// Solicitudes tutorias |||
-Route::get('solicitudes_tutorias',[SolicitudTutoriaController::class,'index']);
-Route::post('solicitudes_tutorias',[SolicitudTutoriaController::class,'store']);
-Route::get('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'show']);
-Route::put('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'update']);
-Route::delete('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'destroy']);
-
-// Materias |||
+// Materias -
 Route::get('materias',[MateriaController::class,'index']);
 Route::post('materias',[MateriaController::class,'store']);
 Route::get('materias/{materia}',[MateriaController::class,'show']);
 Route::put('materias/{materia}',[MateriaController::class,'update']);
 Route::delete('materias/{materia}',[MateriaController::class,'destroy']);
 
-// Tutorias disponibles |||
+// Solicitudes tutorias -
+Route::get('solicitudes_tutorias',[SolicitudTutoriaController::class,'index']);
+Route::post('solicitudes_tutorias',[SolicitudTutoriaController::class,'store']);
+Route::get('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'show']);
+Route::put('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'update']);
+Route::delete('solicitudes_tutorias/{solicitud}',[SolicitudTutoriaController::class,'destroy']);
+
+// Tutorias disponibles -
 Route::get('tutorias',[TutoriaController::class,'index']);
 Route::post('tutorias',[TutoriaController::class,'store']);
 Route::get('tutorias/{tutoria}',[TutoriaController::class,'show']);
 Route::put('tutorias/{tutoria}',[TutoriaController::class,'update']);
 Route::delete('tutorias/{tutorias}',[TutoriaController::class,'destroy']);
 
-//Alumnos en tutorias |||
+//Alumnos en tutorias -
 Route::get('alumnos_tutorias',[AlumnoTutoriaController::class,'index']);
 Route::post('alumnos_tutorias',[AlumnoTutoriaController::class,'store']);
 Route::get('alumnos_tutorias/{id}',[AlumnoTutoriaController::class,'show']);

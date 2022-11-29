@@ -25,8 +25,8 @@ return new class extends Migration
             $table->unsignedBigInteger('tutor_id');
             $table->foreign('tutor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();//cuenta tutor
             
-            $table->unsignedBigInteger('maestro_id')->nullable();
-            $table->foreign('maestro_id')->references('id')->on('maestros')->onDelete("cascade")->cascadeOnUpdate()->nullable();//maestro que le aprobo o desaprobo dar tutorias
+            $table->unsignedBigInteger('maestro_id');
+            $table->foreign('maestro_id')->references('id')->on('maestros')->onDelete("cascade")->cascadeOnUpdate();//maestro que le aprobo o desaprobo dar tutorias
             
             $table->timestamps();
         });
