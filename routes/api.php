@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::resource('/alumnos', AlumnoController::class);
 Route::get('alumnos',[AlumnoController::class,'index']);
 Route::post('alumnos',[AlumnoController::class,'store']);
 Route::get('alumnos/{alumno}',[AlumnoController::class,'show']);
@@ -29,7 +28,10 @@ Route::delete('alumnos/{alumno}',[AlumnoController::class,'destroy']);
 
 Route::get('maestros',[MaestroController::class,'index']);
 Route::post('maestros',[MaestroController::class,'store']);
-// Route::get('/students', [AlumnoController::class, 'list']);
+Route::get('maestros/{maestro}',[MaestroController::class,'show']);
+Route::put('maestros/{maestro}',[MaestroController::class,'update']);
+Route::delete('maestros/{maestro}',[MaestroController::class,'destroy']);
+
 
 
 

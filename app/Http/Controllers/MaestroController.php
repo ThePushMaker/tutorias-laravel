@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActualizarMaestroRequest;
 use App\Http\Requests\GuardarMaestroRequest;
 use App\Models\Maestros;
 use Illuminate\Http\Request;
@@ -15,7 +16,6 @@ class MaestroController extends Controller
      */
     public function index()
     {
-        // return Maestros::all();
         $maestros = Maestros::get();
 
         return response([
@@ -42,11 +42,26 @@ class MaestroController extends Controller
      */
     public function store(GuardarMaestroRequest $request)
     {
-        Maestros::create($request->all());
-        return response()->json([
-            'res'=>true,
-            'msg'=> "Maestro guardado correctamente"
+        $data = $request->all();
+
+        $maestro = Maestros::create([
+            'nombre'         => $data['nombre'],
+            'correo'         => $data['correo'],
+            'contraseña'     => $data['contraseña'],
+            'estado_cuenta'  => $data['estado_cuenta'],
         ]);
+
+        if($maestro){
+            return response([
+                'status'   => true,
+                'sucursal' => $maestro,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar guardar al maestro'
+            ]);
+        }
     }
 
     /**
@@ -55,9 +70,21 @@ class MaestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Maestros $maestro)
     {
-        //
+        $maestro = Maestros::where('id', $maestro->id)->get();
+
+        if($maestro){
+            return response([
+                'status'   => true,
+                'maestro'   => $maestro
+            ]);
+        }else{
+            return response([
+                'status'=> true,
+                'msg'   => 'No se pudo encontrar la información del maestro'
+            ]); 
+        }
     }
 
     /**
@@ -78,9 +105,34 @@ class MaestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActualizarMaestroRequest $request, Maestros $maestro)
     {
-        //
+        if($maestro){
+            $data = $request->all();
+          
+            $maestro->nombre         = $data['nombre'];
+            $maestro->correo         = $data['correo'];
+            $maestro->contraseña     = $data['contraseña'];
+            $maestro->estado_cuenta  = $data['estado_cuenta'];
+
+            if($maestro->save()){
+                return response([
+                    'status'   => true,
+                    'maestro' => $maestro,
+                ]);
+            }else{
+                return response([
+                    'status' => false,
+                    'msg'    => 'Ocurrio un error al intentar actualizar el maestro'
+                ]);
+            }
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'No se pudo obtener la información del maestro'
+            ]);
+        }
+
     }
 
     /**
@@ -89,8 +141,18 @@ class MaestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Maestros $maestro)
     {
-        //
+        if($maestro->delete()){
+            return response([
+                'status'=> true,
+                'msg'   => "Se ha eliminado al maestro"
+            ]);
+        }else{
+            return response([
+                'status'=> false,
+                'msg'   => "No fue posible eliminar al maestro"
+            ]);
+        }
     }
 }

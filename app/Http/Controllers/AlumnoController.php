@@ -71,7 +71,6 @@ class AlumnoController extends Controller
         if($alumno){
             return response([
                 'status'   => true,
-                'msg'=> "Alumno guardado correctamente",
                 'sucursal' => $alumno
             ]);
         }else{
@@ -100,7 +99,6 @@ class AlumnoController extends Controller
         if($alumno){
             return response([
                 'status'   => true,
-                'msg'      => 'Datos encontrados',
                 'alumno'   => $alumno
             ]);
         }else{
@@ -135,7 +133,6 @@ class AlumnoController extends Controller
      */
     public function update(ActualizarAlumnoRequest $request, Alumnos $alumno)
     {
-
         if($alumno){
             $data = $request->all();
           
@@ -161,7 +158,7 @@ class AlumnoController extends Controller
         }else{
             return response([
                 'status' => false,
-                'msg'    => 'No se pudo obtener la información de la sucursal'
+                'msg'    => 'No se pudo obtener la información del alumno'
             ]);
         }
 
