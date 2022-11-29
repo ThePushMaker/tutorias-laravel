@@ -56,11 +56,35 @@ class AlumnoController extends Controller
      */
     public function store(GuardarAlumnoRequest $request)
     {
-        Alumnos::create($request->all());
-        return response()->json([
-            'res'=>true,
-            'msg'=> "Alumno guardado correctamente"
-        ],200);
+        $data = $request->all();
+
+        $alumno = Alumnos::create([
+            'nombre'            => $data['nombre'],
+            'correo'            => $data['correo'],
+            'contraseña'        => $data['contraseña'],
+            'tipo_cuenta'       => $data['tipo_cuenta'],
+            'estado_cuenta'     => $data['estado_cuenta'],
+            'semestre'          => $data['semestre'],
+            'numero_control'    => $data['numero_control'],
+        ]);
+
+        if($alumno){
+            return response([
+                'status'   => true,
+                'msg'=> "Alumno guardado correctamente",
+                'sucursal' => $alumno
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar guardar al alumno'
+            ]);
+        }
+        // Alumnos::create($request->all());
+        // return response()->json([
+        //     'res'=>true,
+        //     'msg'=> "Alumno guardado correctamente"
+        // ],200);
     }
 
     /**
@@ -71,10 +95,24 @@ class AlumnoController extends Controller
      */
     public function show(Alumnos $alumno)
     {
-        return response()->json([
-            'res'=>true,
-            'alumno'=>$alumno
-        ],200);
+        $alumno = Alumnos::where('id', $alumno->id)->get();
+
+        if($alumno){
+            return response([
+                'status'   => true,
+                'msg'      => 'Datos encontrados',
+                'alumno'   => $alumno
+            ]);
+        }else{
+            return response([
+                'status'=> true,
+                'msg'   => 'No se pudo encontrar la información del alumno'
+            ]); 
+        }
+        // return response()->json([
+        //     'res'=>true,
+        //     'alumno'=>$alumno
+        // ],200);
     }
 
     /**
@@ -97,11 +135,41 @@ class AlumnoController extends Controller
      */
     public function update(ActualizarAlumnoRequest $request, Alumnos $alumno)
     {
-        $alumno->update($request->all());
-        return response()->json([
-            'res'=>true,
-            'mensaje'=>'alumno actualizado correctamente'
-        ],200);
+
+        if($alumno){
+            $data = $request->all();
+          
+            $alumno->nombre         = $data['nombre'];
+            $alumno->correo         = $data['correo'];
+            $alumno->contraseña     = $data['contraseña'];
+            $alumno->tipo_cuenta    = $data['tipo_cuenta'];
+            $alumno->estado_cuenta  = $data['estado_cuenta'];
+            $alumno->semestre       = $data['semestre'];
+            $alumno->numero_control = $data['numero_control'];
+
+            if($alumno->save()){
+                return response([
+                    'status'   => true,
+                    'alumno' => $alumno,
+                ]);
+            }else{
+                return response([
+                    'status' => false,
+                    'msg'    => 'Ocurrio un error al intentar actualizar el alumno'
+                ]);
+            }
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'No se pudo obtener la información de la sucursal'
+            ]);
+        }
+
+        // $alumno->update($request->all());
+        // return response()->json([
+        //     'res'=>true,
+        //     'mensaje'=>'alumno actualizado correctamente'
+        // ],200);
     }
 
     /**
@@ -112,10 +180,21 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumnos $alumno)
     {
-        $alumno->delete();
-        return response()->json([
-            'res'=>true,
-            'mensaje'=>'paciente eliminado correctamente'
-        ],200);
+        if($alumno->delete()){
+            return response([
+                'status'=> true,
+                'msg'   => "Se ha eliminado el alumno"
+            ]);
+        }else{
+            return response([
+                'status'=> false,
+                'msg'   => "No fue posible eliminar el alumno"
+            ]);
+        }
+        // $alumno->delete();
+        // return response()->json([
+        //     'res'=>true,
+        //     'mensaje'=>'paciente eliminado correctamente'
+        // ],200);
     }
 }
