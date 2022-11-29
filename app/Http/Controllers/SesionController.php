@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SolicitudesTutorias;
 use Illuminate\Http\Request;
 
-class SolicitudTutoriaController extends Controller
+class SesionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +13,7 @@ class SolicitudTutoriaController extends Controller
      */
     public function index()
     {
-        $solicitudes_tutorias = SolicitudesTutorias::get();
-
-        return response([
-            'status'    => true,
-            'Solicitudes_tutorias' => $solicitudes_tutorias
-        ]);
+        //
     }
 
     /**
@@ -83,18 +77,8 @@ class SolicitudTutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($solicitud_tutoria)
+    public function destroy($id)
     {
-        if($solicitud_tutoria->delete()){
-            return response([
-                'status'=> true,
-                'msg'   => "Se ha eliminado la solicitud de tutoria"
-            ]);
-        }else{
-            return response([
-                'status'=> false,
-                'msg'   => "No fue posible eliminar la solicitud de tutoria"
-            ]);
-        }
+        //
     }
 }

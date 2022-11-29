@@ -19,10 +19,10 @@ return new class extends Migration
             $table->time('hora_reunion');
             $table->string('enlace_reunion');
             $table->string('mensaje')->nullable();
-            $table->timestamps();
-
+            
             $table->unsignedBigInteger('tutoria_id');
             $table->foreign('tutoria_id')->references('id')->on('tutorias_disponibles')->onDelete("cascade")->cascadeOnUpdate();
+            $table->timestamps();
         });
     }
 

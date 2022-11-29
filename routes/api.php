@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AlumnoTutoriaController;
 use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\SesionController;
 use App\Http\Controllers\SolicitudTutoriaController;
 use App\Http\Controllers\TutoriaController;
 use Illuminate\Http\Request;
@@ -58,3 +60,16 @@ Route::get('tutorias/{tutoria}',[TutoriaController::class,'show']);
 Route::put('tutorias/{tutoria}',[TutoriaController::class,'update']);
 Route::delete('tutorias/{tutorias}',[TutoriaController::class,'destroy']);
 
+//Alumnos en tutorias |||
+Route::get('alumnos_tutorias',[AlumnoTutoriaController::class,'index']);
+Route::post('alumnos_tutorias',[AlumnoTutoriaController::class,'store']);
+Route::get('alumnos_tutorias/{id}',[AlumnoTutoriaController::class,'show']);
+Route::put('alumnos_tutorias/{id}',[AlumnoTutoriaController::class,'update']);
+Route::delete('alumnos_tutorias/{id}',[AlumnoTutoriaController::class,'destroy']);
+
+//Sesiones |||
+Route::get('sesiones',[SesionController::class,'index']);
+Route::post('sesiones',[SesionController::class,'store']);
+Route::get('sesiones/{sesion}',[SesionController::class,'show']);
+Route::put('sesiones/{sesion}',[SesionController::class,'update']);
+Route::delete('sesiones/{sesion}',[SesionController::class,'destroy']);

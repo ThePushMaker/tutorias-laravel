@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Alumnos;
+use App\Models\TutoriasDisponibles;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class AlumnosEnTutoriasFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'alumno_id' =>  Alumnos::all()->random()->id,
+            'tutoria_id' =>  TutoriasDisponibles::all()->random()->id,
         ];
     }
 }

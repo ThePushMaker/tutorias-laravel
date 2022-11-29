@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tutorias_disponibles extends Model
+class TutoriasDisponibles extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class Tutorias_disponibles extends Model
         'alumnos_inscritos',
         'capacidad_maxima',
         'estado',
-        'tutor_id',
         'materia_id',
+        'tutor_id',
         'solicitud_id'
     ];
 }

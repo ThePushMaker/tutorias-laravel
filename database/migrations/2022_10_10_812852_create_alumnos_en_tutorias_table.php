@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('alumnos_en_tutorias', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-
+            
             $table->unsignedBigInteger('alumno_id');
             $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
             $table->unsignedBigInteger('tutoria_id');
             $table->foreign('tutoria_id')->references('id')->on('tutorias_disponibles')->onDelete("cascade")->cascadeOnUpdate();
+            
+            $table->timestamps();
         });
     }
 

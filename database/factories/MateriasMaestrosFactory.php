@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Maestros;
+use App\Models\Materias;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class MateriasMaestrosFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'maestro_id' =>  Maestros::all()->random()->id,
+            'materia_id' =>  Materias::all()->random()->id,
         ];
     }
 }
