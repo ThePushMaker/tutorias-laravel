@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActualizarTutoriaRequest;
 use App\Http\Requests\GuardarTutoriaRequest;
+use App\Models\tutoria;
 use App\Models\TutoriasDisponibles;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,11 @@ class TutoriaController extends Controller
      */
     public function index()
     {
-        $tutoriasDisponibles = TutoriasDisponibles::get();
+        $tutoria = TutoriasDisponibles::get();
 
         return response([
             'status'    => true,
-            'tutoriasDisponibles' => $tutoriasDisponibles
+            'tutoria' => $tutoria
         ]);
     }
 
@@ -44,10 +45,9 @@ class TutoriaController extends Controller
     {
         $data = $request->all();
 
-        $tutoriaDisponible = TutoriasDisponibles::create([
+        $tutoria = TutoriasDisponibles::create([
             'desc_temas_impartir'   => $data['desc_temas_impartir'],
             'horario_pref_sesiones' => $data['horario_pref_sesiones'],
-            'alumnos_inscritos'     => $data['alumnos_inscritos'],
             'capacidad_maxima'      => $data['capacidad_maxima'],
             'estado'                => $data['estado'],
             'materia_id'            => $data['materia_id'],
@@ -55,15 +55,15 @@ class TutoriaController extends Controller
             'solicitud_id'          => $data['solicitud_id'],
         ]);
 
-        if($tutoriaDisponible){
+        if($tutoria){
             return response([
                 'status'   => true,
-                'tutoriaDisponible' => $tutoriaDisponible,
+                'tutoria' => $tutoria,
             ]);
         }else{
             return response([
                 'status' => false,
-                'msg'    => 'Ocurrio un error al intentar guardar la tutoriaDisponible'
+                'msg'    => 'Ocurrio un error al intentar guardar la tutoria'
             ]);
         }
     }
@@ -74,19 +74,19 @@ class TutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TutoriasDisponibles $tutoriaDisponible)
+    public function show(TutoriasDisponibles $tutoria)
     {
-        $tutoriaDisponible = TutoriasDisponibles::where('id', $tutoriaDisponible->id)->get();
+        $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->get();
 
-        if($tutoriaDisponible){
+        if($tutoria){
             return response([
                 'status'   => true,
-                'tutoriaDisponible'   => $tutoriaDisponible
+                'tutoria'   => $tutoria
             ]);
         }else{
             return response([
                 'status'=> true,
-                'msg'   => 'No se pudo encontrar la información de la tutoriaDisponible'
+                'msg'   => 'No se pudo encontrar la información de la tutoria'
             ]); 
         }
     }
@@ -109,35 +109,34 @@ class TutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ActualizarTutoriaRequest $request, TutoriasDisponibles $tutoriaDisponible)
+    public function update(ActualizarTutoriaRequest $request, TutoriasDisponibles $tutoria)
     {
-        if($tutoriaDisponible){
+        if($tutoria){
             $data = $request->all();
           
-            $tutoriaDisponible->desc_temas_impartir     = $data['desc_temas_impartir'];
-            $tutoriaDisponible->horario_pref_sesiones   = $data['horario_pref_sesiones'];
-            $tutoriaDisponible->alumnos_inscritos       = $data['alumnos_inscritos'];
-            $tutoriaDisponible->capacidad_maxima        = $data['capacidad_maxima'];
-            $tutoriaDisponible->estado                  = $data['estado'];
-            $tutoriaDisponible->materia_id              = $data['materia_id'];
-            $tutoriaDisponible->tutor_id                = $data['tutor_id'];
-            $tutoriaDisponible->solicitud_id            = $data['solicitud_id'];
+            $tutoria->desc_temas_impartir     = $data['desc_temas_impartir'];
+            $tutoria->horario_pref_sesiones   = $data['horario_pref_sesiones'];
+            $tutoria->capacidad_maxima        = $data['capacidad_maxima'];
+            $tutoria->estado                  = $data['estado'];
+            $tutoria->materia_id              = $data['materia_id'];
+            $tutoria->tutor_id                = $data['tutor_id'];
+            $tutoria->solicitud_id            = $data['solicitud_id'];
 
-            if($tutoriaDisponible->save()){
+            if($tutoria->save()){
                 return response([
                     'status'   => true,
-                    'tutoriaDisponible' => $tutoriaDisponible,
+                    'tutoria' => $tutoria,
                 ]);
             }else{
                 return response([
                     'status' => false,
-                    'msg'    => 'Ocurrio un error al intentar actualizar la tutoriaDisponible'
+                    'msg'    => 'Ocurrio un error al intentar actualizar la tutoria'
                 ]);
             }
         }else{
             return response([
                 'status' => false,
-                'msg'    => 'No se pudo obtener la información del tutoriaDisponible'
+                'msg'    => 'No se pudo obtener la información del tutoria'
             ]);
         }
     }
@@ -148,9 +147,9 @@ class TutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TutoriasDisponibles $tutoriaDisponible)
+    public function destroy(TutoriasDisponibles $tutoria)
     {
-        if($tutoriaDisponible->delete()){
+        if($tutoria->delete()){
             return response([
                 'status'=> true,
                 'msg'   => "Se ha eliminado la tutoria"

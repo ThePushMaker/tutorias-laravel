@@ -45,11 +45,11 @@ class SesionController extends Controller
         $data = $request->all();
 
         $sesion = Sesiones::create([
-            'nombre'         => $data['fecha_reunion'],
-            'correo'         => $data['hora_reunion'],
-            'contraseña'     => $data['enlace_reunion'],
-            'estado_cuenta'  => $data['mensaje'],
-            'estado_cuenta'  => $data['tutoria_id'],
+            'fecha_reunion'         => $data['fecha_reunion'],
+            'hora_reunion'         => $data['hora_reunion'],
+            'enlace_reunion'     => $data['enlace_reunion'],
+            'mensaje'  => $data['mensaje'],
+            'tutoria_id'  => $data['tutoria_id'],
         ]);
 
         if($sesion){

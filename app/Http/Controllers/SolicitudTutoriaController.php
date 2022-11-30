@@ -50,7 +50,7 @@ class SolicitudTutoriaController extends Controller
             'estado'            => $data['estado'],
             'materia_id'        => $data['materia_id'],
             'tutor_id'          => $data['tutor_id'],
-            'solicitud_tutoria_id'        => $data['solicitud_tutoria_id'],
+            'maestro_id'        => $data['maestro_id'],
         ]);
 
         if($solicitud_tutoria){

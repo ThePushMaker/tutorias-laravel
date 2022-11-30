@@ -26,7 +26,6 @@ class GuardarTutoriaRequest extends FormRequest
         return [
             'desc_temas_impartir' => "required",
             'horario_pref_sesiones' => "required",
-            'alumnos_inscritos' => "required",
             'capacidad_maxima' => "required",
             'estado' => "required",
             'materia_id' => "required",

@@ -19,7 +19,6 @@
         <div class="card-body pt-0">
             <div class="table-responsive scrollbar">
                 <div id=app>
-                    <welcome/>
                 </div>
             </div>
         </div>

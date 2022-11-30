@@ -12,7 +12,6 @@ class TutoriasDisponibles extends Model
     protected $fillable = [
         'desc_temas_impartir',
         'horario_pref_sesiones',
-        'alumnos_inscritos',
         'capacidad_maxima',
         'estado',
         'materia_id',

@@ -44,20 +44,20 @@ class AlumnoTutoriaController extends Controller
     {
         $data = $request->all();
 
-        $alumnoEnTutoria = AlumnosEnTutorias::create([
+        $alumno_tutoria = AlumnosEnTutorias::create([
             'alumno_id'         => $data['alumno_id'],
             'tutoria_id'         => $data['tutoria_id'],
         ]);
 
-        if($alumnoEnTutoria){
+        if($alumno_tutoria){
             return response([
                 'status'   => true,
-                'alumnoEnTutoria' => $alumnoEnTutoria,
+                'alumno_tutoria' => $alumno_tutoria,
             ]);
         }else{
             return response([
                 'status' => false,
-                'msg'    => 'Ocurrio un error al intentar guardar al alumnoEnTutoria'
+                'msg'    => 'Ocurrio un error al intentar guardar al alumno_tutoria'
             ]);
         }
     }
@@ -68,19 +68,19 @@ class AlumnoTutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(AlumnosEnTutorias $alumnoEnTutoria)
+    public function show(AlumnosEnTutorias $alumno_tutoria)
     {
-        $alumnoEnTutoria = AlumnosEnTutorias::where('id', $alumnoEnTutoria->id)->get();
+        $alumno_tutoria = AlumnosEnTutorias::where('id', $alumno_tutoria->id)->get();
 
-        if($alumnoEnTutoria){
+        if($alumno_tutoria){
             return response([
                 'status'   => true,
-                'alumnoEnTutoria'   => $alumnoEnTutoria
+                'alumno_tutoria'   => $alumno_tutoria
             ]);
         }else{
             return response([
                 'status'=> true,
-                'msg'   => 'No se pudo encontrar la información del alumnoEnTutoria'
+                'msg'   => 'No se pudo encontrar la información del alumno_tutoria'
             ]); 
         }
     }
@@ -103,29 +103,29 @@ class AlumnoTutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ActualizarAlumnoTutoriaRequest $request, AlumnosEnTutorias $alumnoEnTutoria)
+    public function update(ActualizarAlumnoTutoriaRequest $request, AlumnosEnTutorias $alumno_tutoria)
     {
-        if($alumnoEnTutoria){
+        if($alumno_tutoria){
             $data = $request->all();
           
-            $alumnoEnTutoria->alumno_id         = $data['alumno_id'];
-            $alumnoEnTutoria->tutoria_id         = $data['tutoria_id'];
+            $alumno_tutoria->alumno_id         = $data['alumno_id'];
+            $alumno_tutoria->tutoria_id         = $data['tutoria_id'];
 
-            if($alumnoEnTutoria->save()){
+            if($alumno_tutoria->save()){
                 return response([
                     'status'   => true,
-                    'alumnoEnTutoria' => $alumnoEnTutoria,
+                    'alumno_tutoria' => $alumno_tutoria,
                 ]);
             }else{
                 return response([
                     'status' => false,
-                    'msg'    => 'Ocurrio un error al intentar actualizar el alumnoEnTutoria'
+                    'msg'    => 'Ocurrio un error al intentar actualizar el alumno_tutoria'
                 ]);
             }
         }else{
             return response([
                 'status' => false,
-                'msg'    => 'No se pudo obtener la información del alumnoEnTutoria'
+                'msg'    => 'No se pudo obtener la información del alumno_tutoria'
             ]);
         }
     }
@@ -136,17 +136,17 @@ class AlumnoTutoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlumnosEnTutorias $alumnoEnTutoria)
+    public function destroy(AlumnosEnTutorias $alumno_tutoria)
     {
-        if($alumnoEnTutoria->delete()){
+        if($alumno_tutoria->delete()){
             return response([
                 'status'=> true,
-                'msg'   => "Se ha eliminado al alumnoEnTutoria"
+                'msg'   => "Se ha eliminado al alumno_tutoria"
             ]);
         }else{
             return response([
                 'status'=> false,
-                'msg'   => "No fue posible eliminar al alumnoEnTutoria"
+                'msg'   => "No fue posible eliminar al alumno_tutoria"
             ]);
         }
     }
