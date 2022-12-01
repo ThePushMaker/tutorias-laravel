@@ -11,7 +11,7 @@
     <div class="card">
         <div class="card-header pb-0">
             <div class="d-flex justify-content-between">
-                Alumnos
+                Maestros
                 <a href="" class="btn btn-primary btn-sm">Nuevo</a>
             </div>
             <hr>

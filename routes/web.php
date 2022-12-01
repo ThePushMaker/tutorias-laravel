@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\MaestroController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -25,7 +26,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     /* Alumnos */
-Route::get('alumno/crear', [SucursalController::class, 'alumnoCrear'])->name('alumno-crear');
+Route::get('alumno/crear', [AlumnoController::class, 'alumnoCrear'])->name('alumno-crear');
 Route::get('alumnos', [AlumnoController::class, 'alumnosList'])->name('alumnos-list');
 Route::get('alumno/{alumno}', [AlumnoController::class, 'showOne'])->name('alumno');
 Route::get('alumno/{alumno}/editar', [AlumnoController::class, 'alumnoUpdate'])->name('alumno-update');
+
+//Maestros
+Route::get('maestro/crear', [MaestroController::class, 'maestroCrear'])->name('maestro-crear');
+Route::get('maestros', [MaestroController::class, 'maestrosList'])->name('maestros-list');
+Route::get('maestro/{maestro}', [MaestroController::class, 'showOne'])->name('maestro');
+Route::get('maestro/{maestro}/editar', [MaestroController::class, 'maestroUpdate'])->name('maestro-update');

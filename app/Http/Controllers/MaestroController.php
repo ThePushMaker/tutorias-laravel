@@ -9,6 +9,20 @@ use Illuminate\Http\Request;
 
 class MaestroController extends Controller
 {
+
+    public function maestrosList(){
+        return view('maestro-list');
+    }
+    public function maestroUpdate(Maestros $maestro){
+        return view('maestro-update', compact('maestro'));
+    }
+    public function showOne(Maestros $maestro){
+        return view('maestro-detalle', compact('maestro'));
+    }
+    public function maestroCrear(){
+        return view('maestro-crear');
+    }
+
     /**
      * Display a listing of the resource.
      *

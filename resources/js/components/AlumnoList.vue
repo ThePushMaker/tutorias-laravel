@@ -12,8 +12,8 @@
                     <th class="text-center">Opciones</th>
                 </tr>
             </thead>
-            <tbody v-if="clients && clients.length > 0">
-                <tr class="btn-reveal-trigger" v-for="client in clients" :key="client.id" >
+            <tbody v-if="alumnos && alumnos.length > 0">
+                <tr class="btn-reveal-trigger" v-for="client in alumnos" :key="client.id" >
                     
                     <td><a :href="`/alumno/${client.id}`">{{ client.nombre }}</a></td>
                     <td class="texto-desborde">{{ client.correo }}</td>
@@ -37,15 +37,15 @@
             <tbody v-else>
                 <tr>
                     <td colspan="7">
-                        <p class="text-center" v-if="clients">No hay alumnos</p>
+                        <p class="text-center" v-if="alumnos">No hay alumnos</p>
                         <p class="text-center" v-else>Cargando...</p>
                     </td>
                 </tr>
             </tbody>
         </table>
         
-        <p class="text-end" v-if="clients && clients.length > 0">
-            <small>{{ clients.length }} Alumnos</small>
+        <p class="text-end" v-if="alumnos && alumnos.length > 0">
+            <small>{{ alumnos.length }} Alumnos</small>
         </p>
 
     </div>
@@ -56,18 +56,18 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            clients: undefined,
+            alumnos: undefined,
         }
     },
     mounted(){
-        this.getClients();
+        this.getData();
     },
     methods: {
-        getClients(){
+        getData(){
             axios.get('/api/alumnos').then((resp)=>{
                 if(resp.data.status){
                     console.log(resp.data);
-                    this.clients = resp.data.alumnos
+                    this.alumnos = resp.data.alumnos
                 }
             });
         },
@@ -80,11 +80,11 @@ export default {
                 confirmButtonText: 'Eliminar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.deleteClient(client)
+                    this.deleteData(client)
                 }
             })
         },
-        deleteClient(client){
+        deleteData(client){
             axios.delete(`/api/alumno/${client.id}`).then(resp => {
                 if(resp.data.status){
                     Swal.fire(
@@ -92,7 +92,7 @@ export default {
                         `El alumno <b>${client.name}</b> ha sido eliminado`,
                         'success'
                     ).then(resp => {
-                        this.getClients();
+                        this.getData();
                     })
                 }else{
                     Swal.fire(

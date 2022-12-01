@@ -12,14 +12,11 @@
                     <th class="text-center">Opciones</th>
                 </tr>
             </thead>
-            <tbody v-if="clients && clients.length > 0">
-                <tr class="btn-reveal-trigger" v-for="client in clients" :key="client.id" >
+            <tbody v-if="maestros && maestros.length > 0">
+                <tr class="btn-reveal-trigger" v-for="client in maestros" :key="client.id" >
                     
                     <td><a :href="`/alumno/${client.id}`">{{ client.nombre }}</a></td>
                     <td class="texto-desborde">{{ client.correo }}</td>
-                    <td class="texto-desborde">{{ client.numero_control }}</td>
-                    <td class="texto-desborde">{{ client.semestre }}</td>
-                    <td class="texto-desborde">{{ client.tipo_cuenta }}</td>
                     <td class="texto-desborde">{{ client.estado_cuenta }}</td>
                     <td class="text-center">
                         <div class="dropdown font-sans-serif position-static">
@@ -37,15 +34,15 @@
             <tbody v-else>
                 <tr>
                     <td colspan="7">
-                        <p class="text-center" v-if="clients">No hay alumnos</p>
+                        <p class="text-center" v-if="maestros">No hay alumnos</p>
                         <p class="text-center" v-else>Cargando...</p>
                     </td>
                 </tr>
             </tbody>
         </table>
         
-        <p class="text-end" v-if="clients && clients.length > 0">
-            <small>{{ clients.length }} Alumnos</small>
+        <p class="text-end" v-if="maestros && maestros.length > 0">
+            <small>{{ maestros.length }} Alumnos</small>
         </p>
 
     </div>
@@ -56,18 +53,18 @@ import axios from 'axios'
 export default {
     data(){
         return {
-            clients: undefined,
+            maestros: undefined,
         }
     },
     mounted(){
-        this.getClients();
+        this.getData();
     },
     methods: {
-        getClients(){
+        getData(){
             axios.get('/api/maestros').then((resp)=>{
                 if(resp.data.status){
                     console.log(resp.data);
-                    this.clients = resp.data.maestros
+                    this.maestros = resp.data.maestros
                 }
             });
         },
@@ -84,7 +81,7 @@ export default {
                 }
             })
         },
-        deleteClient(client){
+        deleteData(client){
             axios.delete(`/api/alumno/${client.id}`).then(resp => {
                 if(resp.data.status){
                     Swal.fire(
@@ -92,7 +89,7 @@ export default {
                         `El alumno <b>${client.name}</b> ha sido eliminado`,
                         'success'
                     ).then(resp => {
-                        this.getClients();
+                        this.getData();
                     })
                 }else{
                     Swal.fire(
