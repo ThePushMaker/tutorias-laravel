@@ -17,4 +17,11 @@ class SolicitudesTutorias extends Model
         'tutor_id',
         'maestro_id'
     ];
+
+    public function tutor(){
+        return $this->hasOne(Alumnos::class,'id','tutor_id');
+    }
+    public function materia(){
+        return $this->hasOne(Materias::class,'id','materia_id');
+    }
 }

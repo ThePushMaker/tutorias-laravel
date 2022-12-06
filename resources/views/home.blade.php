@@ -134,26 +134,26 @@ body {
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-auto">
     <div>
-      <h3 class="float-md-start mb-0">Cover</h3>
+      <h5 class="float-md-start mb-0">STDASC | UABCS</h5>
       <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Alumno</a>
-        <a class="nav-link fw-bold py-1 px-0" href="#">Tutor</a>
-        <a class="nav-link fw-bold py-1 px-0" href="#">Profesor</a>
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/alumnos">Alumno</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/tutores">Tutor</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/profesores">Profesor</a>
       </nav>
     </div>
   </header>
 
   <main class="px-3">
-    <h1>Bienvenido a stdasc.</h1>
-    <p class="lead">stdasc es el programa de tutorias de alumnos para los alumnis.</p>
+    <h1 class="mb-5">Bienvenido a STDASC</h1>
+    <p class="lead mb-5">El sitio de tutorias de alumnos y para alumnos.</p>
     <p class="lead">
-      <a href="/inicio_sesion" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Iniciar sesión</a>
+      <a href="/inicio_sesion" class="btn btn-lg btn-secondary fw-bold border-white bg-white me-4">Iniciar sesión</a>
       <a href="/registro" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Registrarse</a>
     </p>
   </main>
 
   <footer class="mt-auto text-white-50">
-    <p>Universida autonoma de baja california sur</p>
+    <p>Universidad Autónoma de Baja California Sur</p>
   </footer>
 </div>
 

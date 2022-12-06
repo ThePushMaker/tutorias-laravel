@@ -1,11 +1,11 @@
 
   @include('layouts.top')
         
-    @include('layouts.profesores.header')
+    @include('layouts.alumnos.header')
 
     <div class="container-fluid">
     <div class="row">
-        @include('layouts.profesores.sidenavbar')
+        @include('layouts.alumnos.sidenavbar')
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 

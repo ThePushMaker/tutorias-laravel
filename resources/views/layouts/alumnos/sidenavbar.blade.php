@@ -6,37 +6,37 @@
             <ul class="nav flex-column">
                 
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/profesores">
+                <a class="nav-link active" aria-current="page" href="/alumnos">
                 <span data-feather="home" class="align-text-bottom"></span>
                 Inicio
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/profesores">
+                <a class="nav-link" href="/alumnos">
                 <span data-feather="chevron-down" class="align-text-bottom"></span>
-                Solicitudes de tutorías
+                Tutorías disponibles
                 </a>
             </li>
-            <li class="nav-item ms-4">
-                <a class="nav-link" href="/profesores">
+            <!-- <li class="nav-item ms-4">
+                <a class="nav-link" href="/alumnos">
                 <span data-feather="edit" class="align-text-bottom"></span>
                 Pendientes
                 </a>
             </li>
             <li class="nav-item ms-4">
-                <a class="nav-link" href="/profesores">
+                <a class="nav-link" href="/alumnos">
                 <span data-feather="check-square" class="align-text-bottom"></span>
                 Aceptadas
                 </a>
             </li>
             <li class="nav-item ms-4">
-                <a class="nav-link" href="/profesores">
+                <a class="nav-link" href="/alumnos">
                 <span data-feather="x-square" class="align-text-bottom"></span>
                 Rechazadas
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
-                <a class="nav-link" href="/profesores">
+                <a class="nav-link" href="/alumnos">
                 <span data-feather="user" class="align-text-bottom"></span>
                 Ver perfil
                 </a>

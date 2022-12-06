@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class SolicitudTutoriaController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class SolicitudTutoriaController extends Controller
      */
     public function index()
     {
-        $solicitudes_tutorias = SolicitudesTutorias::get();
+        $solicitudes_tutorias = SolicitudesTutorias::with('tutor')->with('materia')->get();
 
         return response([
             'status'    => true,
