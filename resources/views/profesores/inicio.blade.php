@@ -15,6 +15,8 @@
             </div>
     </div>
 
+        <div id=app></div>
+
         @include('layouts.tabla')
 
 
