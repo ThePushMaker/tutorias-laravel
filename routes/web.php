@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
@@ -32,7 +32,8 @@ Route::get('alumno/{alumno}', [AlumnoController::class, 'showOne'])->name('alumn
 Route::get('alumno/{alumno}/editar', [AlumnoController::class, 'alumnoUpdate'])->name('alumno-update');
 
 //Maestros
-Route::get('maestro/crear', [MaestroController::class, 'maestroCrear'])->name('maestro-crear');
-Route::get('maestros', [MaestroController::class, 'maestrosList'])->name('maestros-list');
-Route::get('maestro/{maestro}', [MaestroController::class, 'showOne'])->name('maestro');
-Route::get('maestro/{maestro}/editar', [MaestroController::class, 'maestroUpdate'])->name('maestro-update');
+Route::get('profesores/crear', [MaestroController::class, 'maestroCrear'])->name('maestro-crear');
+Route::get('profesores', [MaestroController::class, 'maestrosHome'])->name('profesores_home');
+// Route::get('profesores', [MaestroController::class, 'maestrosList'])->name('maestros-list');
+Route::get('profesores/{maestro}', [MaestroController::class, 'showOne'])->name('maestro');
+Route::get('profesores/{maestro}/editar', [MaestroController::class, 'maestroUpdate'])->name('maestro-update');

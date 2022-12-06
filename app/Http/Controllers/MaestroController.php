@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class MaestroController extends Controller
 {
 
-    public function maestrosList(){
-        return view('maestro-list');
+    public function maestrosHome(){
+        return view('profesores.inicio');
     }
     public function maestroUpdate(Maestros $maestro){
         return view('maestro-update', compact('maestro'));
