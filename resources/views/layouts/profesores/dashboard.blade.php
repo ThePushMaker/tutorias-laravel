@@ -5,15 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.104.2">
         <title>STDASC | Sistema de Tutorias DASC</title>
 
 
     <meta name="theme-color" content="#712cf9">
         
-        <!-- Custom styles for this template -->
-        <!-- <link href="dashboard.css" rel="stylesheet"> -->
     </head>
     <body>
         
@@ -25,9 +22,7 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-        
-        @yield('content')
-
+            @yield('content')
             
         </main>
     </div>

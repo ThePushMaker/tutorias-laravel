@@ -7,11 +7,11 @@ import * as bootstrap from 'bootstrap'
 
 
 
-import {createApp} from 'vue'
+// import {createApp} from 'vue'
 
 // import AlumnoList from './components/AlumnoList.vue'
-import MaestroList from './components/MaestroList.vue'
+// import MaestroList from './components/MaestroList.vue'
 
-// createApp(AlumnoList).mount("#app")
-createApp(MaestroList).mount("#app")
+// // createApp(AlumnoList).mount("#app")
+// createApp(MaestroList).mount("#app")
 

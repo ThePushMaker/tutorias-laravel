@@ -19,11 +19,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/inicio_sesion', function () {
+    return view('inicio_sesion');
+});
+Route::get('/registro', function () {
+    return view('registro');
+});
 
+// public function registro(){
+//     return view('registro');
+// }
+// public function inicio_sesion(){
+//     return view('inicio_sesion');
+// }
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/inicio_sesion', [App\Http\Controllers\HomeController::class, 'inicio_sesion'])->name('inicio_sesion');;
+// Route::get('/registro', [App\Http\Controllers\HomeController::class, 'registro'])->name('registro');
+
 
     /* Alumnos */
 Route::get('alumno/crear', [AlumnoController::class, 'alumnoCrear'])->name('alumno-crear');
