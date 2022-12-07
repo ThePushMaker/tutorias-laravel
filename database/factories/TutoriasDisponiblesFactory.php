@@ -25,7 +25,7 @@ class TutoriasDisponiblesFactory extends Factory
             'capacidad_maxima' => fake()->numberBetween(1, 3),
             'estado' =>  fake()->randomElement(['Activa', 'Inactiva']),
             'materia_id' =>  Materias::all()->random()->id,
-            'tutor_id' =>  Alumnos::all()->random()->id,
+            'tutor_id' =>  Alumnos::all()->where('tipo_cuenta', 'Tutor')->random()->id,
             'solicitud_id' =>  SolicitudesTutorias::all()->random()->id,
         ];
     }

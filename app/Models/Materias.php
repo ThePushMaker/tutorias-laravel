@@ -13,4 +13,9 @@ class Materias extends Model
         'nombre',
         'descripcion',
     ];
+
+    protected $hidden=[ //los datos que no queremos que se envíen por el controlador de la api
+        'created_at',
+        'updated_at',
+    ];
 }

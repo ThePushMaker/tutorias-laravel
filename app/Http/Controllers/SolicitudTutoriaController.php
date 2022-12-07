@@ -17,7 +17,7 @@ class SolicitudTutoriaController extends Controller
      */
     public function index()
     {
-        $solicitudes_tutorias = SolicitudesTutorias::with('tutor')->with('materia')->get();
+        $solicitudes_tutorias = SolicitudesTutorias::with('tutor')->with('materia')->with('maestro')->get();
 
         return response([
             'status'    => true,
@@ -75,7 +75,7 @@ class SolicitudTutoriaController extends Controller
      */
     public function show(SolicitudesTutorias $solicitud_tutoria)
     {
-        $solicitud_tutoria = SolicitudesTutorias::where('id', $solicitud_tutoria->id)->get();
+        $solicitud_tutoria = SolicitudesTutorias::with('tutor')->with('materia')->with('maestro')->where('id', $solicitud_tutoria->id)->get();
 
         if($solicitud_tutoria){
             return response([

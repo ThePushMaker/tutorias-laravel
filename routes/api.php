@@ -4,6 +4,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AlumnoTutoriaController;
 use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\MateriaMaestroController;
 use App\Http\Controllers\SesionController;
 use App\Http\Controllers\SolicitudTutoriaController;
 use App\Http\Controllers\TutoriaController;
@@ -45,6 +46,10 @@ Route::post('materias',[MateriaController::class,'store']);
 Route::get('materias/{materia}',[MateriaController::class,'show']);
 Route::put('materias/{materia}',[MateriaController::class,'update']);
 Route::delete('materias/{materia}',[MateriaController::class,'destroy']);
+
+// Materias_mestros
+Route::get('materias_maestros',[MateriaMaestroController::class,'index']);
+Route::get('materias_maestros/{materia_maestro}',[MateriaMaestroController::class,'show']);
 
 // Solicitudes tutorias 
 Route::get('solicitudes_tutorias',[SolicitudTutoriaController::class,'index']);

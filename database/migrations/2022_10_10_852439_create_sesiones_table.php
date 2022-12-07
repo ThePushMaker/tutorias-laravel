@@ -21,7 +21,13 @@ return new class extends Migration
             $table->string('mensaje')->nullable();
             
             $table->unsignedBigInteger('tutoria_id');
-            $table->foreign('tutoria_id')->references('id')->on('tutorias_disponibles')->onDelete("cascade")->cascadeOnUpdate();
+                $table->foreign('tutoria_id')->references('id')->on('tutorias_disponibles')->onDelete("cascade")->cascadeOnUpdate();
+            $table->unsignedBigInteger('alumno_id');
+                $table->foreign('alumno_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
+            $table->unsignedBigInteger('tutor_id');
+                $table->foreign('tutor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
+            $table->unsignedBigInteger('materia_id');
+                $table->foreign('materia_id')->references('id')->on('materias')->onDelete("cascade")->cascadeOnUpdate();
             $table->timestamps();
         });
     }

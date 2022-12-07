@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Alumnos;
+use App\Models\Materias;
 use App\Models\TutoriasDisponibles;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,6 +25,10 @@ class SesionesFactory extends Factory
             'enlace_reunion' =>  fake()->url(),
             'mensaje' =>  fake()->paragraph(1),
             'tutoria_id' =>  TutoriasDisponibles::all()->random()->id,
+            'alumno_id' =>  Alumnos::all()->random()->id,
+            'tutor_id' =>  Alumnos::all()->where('tipo_cuenta', 'Tutor')->random()->id,
+            'materia_id' =>  Materias::all()->random()->id,
+            
         ];
     }
 }

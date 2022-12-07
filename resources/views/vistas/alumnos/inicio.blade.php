@@ -1,4 +1,4 @@
-@extends('layouts.alumnos.dashboard')
+<!-- @extends('layouts.alumnos.dashboard')
 
 @section('content')
 
@@ -10,4 +10,4 @@
         <div id=app></div>
 
         @vite('resources/js/solicitudes-list.js')
-@endsection
+@endsection -->

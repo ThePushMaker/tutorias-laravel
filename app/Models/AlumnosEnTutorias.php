@@ -13,4 +13,16 @@ class AlumnosEnTutorias extends Model
         'alumno_id',
         'tutoria_id',
     ];
+
+    protected $hidden=[ 
+        'created_at',
+        'updated_at',
+    ];
+
+    public function tutoria(){
+        return $this->hasOne(TutoriasDisponibles::class,'id','tutoria_id');
+    }
+    public function alumno(){
+        return $this->hasOne(Alumnos::class,'id','alumno_id');
+    }
 }

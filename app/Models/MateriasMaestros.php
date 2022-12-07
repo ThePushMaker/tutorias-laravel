@@ -13,4 +13,16 @@ class MateriasMaestros extends Model
         'maestro_id',
         'materia_id',
     ];
+
+    protected $hidden=[ 
+        'created_at',
+        'updated_at',
+    ];
+
+    public function materia(){
+        return $this->hasOne(Materias::class,'id','materia_id');
+    }
+    public function maestro(){
+        return $this->hasOne(Maestros::class,'id','materia_id');
+    }
 }

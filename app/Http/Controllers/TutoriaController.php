@@ -17,7 +17,7 @@ class TutoriaController extends Controller
      */
     public function index()
     {
-        $tutoria = TutoriasDisponibles::get();
+        $tutoria = TutoriasDisponibles::with('solicitud')->with('tutor')->with('materia')->get();
 
         return response([
             'status'    => true,
@@ -76,7 +76,7 @@ class TutoriaController extends Controller
      */
     public function show(TutoriasDisponibles $tutoria)
     {
-        $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->get();
+        $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->with('solicitud')->with('tutor')->with('materia')->get();
 
         if($tutoria){
             return response([

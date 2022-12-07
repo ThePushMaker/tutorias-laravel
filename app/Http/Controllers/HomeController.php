@@ -7,25 +7,25 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function registro(){
-        return view('registro');
+        return view('vistas.registro');
     }
     public function inicio_sesion(){
-        return view('inicio_sesion');
+        return view('vistas.inicio_sesion');
     }
 
     // dashboard profesores
     public function profesoresInicio(){
-        return view('profesores.solicitudes.list');
+        return view('vistas.profesores.solicitudes_list');
     }
     public function solicitudEditar(){
-        return view('profesores.solicitudes.edit');
+        return view('vistas.profesores.solicitudes_edit');
     }
 
     
 
     // dashboard alumnos
     public function alumnosInicio(){
-        return view('alumnos.inicio');
+        return view('vistas.alumnos.tutorias_list');
     }
 
 
@@ -33,7 +33,7 @@ class HomeController extends Controller
 
     // dashboard tutores
     public function tutoresInicio(){
-        return view('tutores.inicio');
+        return view('vistas.tutores.inicio');
     }
 
     /**

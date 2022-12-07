@@ -16,7 +16,7 @@ class SesionController extends Controller
      */
     public function index()
     {
-        $sesiones = Sesiones::get();
+        $sesiones = Sesiones::with('tutoria')->with('alumno')->with('tutor')->with('materia')->get();
 
         return response([
             'status'    => true,
@@ -73,7 +73,7 @@ class SesionController extends Controller
      */
     public function show(Sesiones $sesion)
     {
-        $sesion = Sesiones::where('id', $sesion->id)->get();
+        $sesion = Sesiones::where('id', $sesion->id)->with('tutoria')->with('alumno')->with('tutor')->with('materia')->get();
 
         if($sesion){
             return response([

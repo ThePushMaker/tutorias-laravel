@@ -16,7 +16,7 @@ class AlumnoTutoriaController extends Controller
      */
     public function index()
     {
-        $AlumnosEnTutorias = AlumnosEnTutorias::get();
+        $AlumnosEnTutorias = AlumnosEnTutorias::with('tutoria')->with('alumno')->get();
 
         return response([
             'status'    => true,
@@ -70,7 +70,7 @@ class AlumnoTutoriaController extends Controller
      */
     public function show(AlumnosEnTutorias $alumno_tutoria)
     {
-        $alumno_tutoria = AlumnosEnTutorias::where('id', $alumno_tutoria->id)->get();
+        $alumno_tutoria = AlumnosEnTutorias::where('id', $alumno_tutoria->id)->with('tutoria')->with('alumno')->get();
 
         if($alumno_tutoria){
             return response([

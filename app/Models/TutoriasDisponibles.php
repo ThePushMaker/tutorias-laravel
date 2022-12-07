@@ -18,4 +18,19 @@ class TutoriasDisponibles extends Model
         'tutor_id',
         'solicitud_id'
     ];
+
+    protected $hidden=[ 
+        'created_at',
+        'updated_at',
+    ];
+
+    public function tutor(){
+        return $this->hasOne(Alumnos::class,'id','tutor_id');
+    }
+    public function materia(){
+        return $this->hasOne(Materias::class,'id','materia_id');
+    }
+    public function solicitud(){
+        return $this->hasOne(SolicitudesTutorias::class,'id','solicitud_id');
+    }
 }

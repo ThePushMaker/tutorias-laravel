@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AlumnoController;
-use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\SolicitudTutoriaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('vistas.home');
 });
 // Route::get('/inicio_sesion', function () {
 //     return view('inicio_sesion');
@@ -33,15 +31,15 @@ Route::get('/registro', [App\Http\Controllers\HomeController::class, 'registro']
 
 // Dashboard Profesores
 // Solicitudes tutorias
-Route::get('profesores', [HomeController::class, 'profesoresInicio']);
+Route::get('/profesores', [HomeController::class, 'profesoresInicio']);
+Route::get('/profesores/solicitudes/{solicitud}/editar', [HomeController::class, 'solicitudEditar']);
 // Route::get('profesores/solicitudes/{solicitud}', [SolicitudTutoriaController::class, 'solicitudMostrar']);
-Route::get('profesores/solicitudes/{solicitud}/editar', [SolicitudTutoriaController::class, 'solicitudEditar']);
 
 // Dashboard alumnos
-Route::get('alumnos', [HomeController::class, 'alumnosInicio']);
+Route::get('/alumnos', [HomeController::class, 'alumnosInicio']);
 
 // Dashboard tutores
-Route::get('tutores', [HomeController::class, 'tutoresInicio']);
+Route::get('/tutores', [HomeController::class, 'tutoresInicio']);
 
 
 
