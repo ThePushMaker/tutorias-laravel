@@ -27,8 +27,6 @@ class GuardarAlumnoRequest extends FormRequest
             'nombre' => "required",
             'correo' => "required|unique:alumnos,correo",
             'contraseña' => "required",
-            'tipo_cuenta' => "required",
-            'estado_cuenta' => "required",
             'semestre' =>  "required",
             'numero_control' => "required|unique:alumnos,numero_control",
         ];

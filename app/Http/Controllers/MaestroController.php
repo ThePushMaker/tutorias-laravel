@@ -62,7 +62,7 @@ class MaestroController extends Controller
             'nombre'         => $data['nombre'],
             'correo'         => $data['correo'],
             'contraseña'     => $data['contraseña'],
-            'estado_cuenta'  => $data['estado_cuenta'],
+            'estado_cuenta'  => "Activa",
         ]);
 
         if($maestro){

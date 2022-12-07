@@ -62,8 +62,8 @@ class AlumnoController extends Controller
             'nombre'            => $data['nombre'],
             'correo'            => $data['correo'],
             'contraseña'        => $data['contraseña'],
-            'tipo_cuenta'       => $data['tipo_cuenta'],
-            'estado_cuenta'     => $data['estado_cuenta'],
+            'tipo_cuenta'       => "Alumno",
+            'estado_cuenta'     => "Activa",
             'semestre'          => $data['semestre'],
             'numero_control'    => $data['numero_control'],
         ]);

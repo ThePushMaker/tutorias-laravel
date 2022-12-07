@@ -27,7 +27,6 @@ class GuardarMaestroRequest extends FormRequest
             'nombre' => "required",
             'correo' => "required|unique:maestros,correo",
             'contraseña' => "required",
-            'estado_cuenta' => "required"
         ];
     }
 }
