@@ -2,10 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IniciarSesionRequest;
+use App\Models\Alumnos;
+use App\Models\Maestros;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public function iniciar_sesion(IniciarSesionRequest $request){
+
+        $data = $request->all();
+            
+        $maestro = Maestros::where('correo', $data['correo'])->where('contraseña', $data['contraseña'])->get()->first();
+        $alumno = Alumnos::where('correo', $data['correo'])->where('contraseña', $data['contraseña'])->get()->first();
+
+        if($alumno!=null){
+            return response([
+                'status'   => true,
+                'msg'   => 'Iniciando sesión...',
+                'tipo_cuenta'  => 'Alumno',
+                'usuario'  => $alumno,
+                // 'data'  => $data
+            ]);
+        }else if($maestro!=null ){
+            return response([
+                'status'   => true,
+                'msg'   => 'Iniciando sesión...',
+                'tipo_cuenta'   => 'Maestro',
+                'usuario'  => $maestro,
+                // 'data'  => $data
+            ]);
+        }
+        else{
+            return response([
+                'status'=> false,
+                'msg'   => 'Datos incorrectos',
+                'alumno'  => $alumno,
+                'maestro'  => $maestro,
+                // 'data'  => $data
+            ]); 
+        }
+    
+    }
+
+
     public function registro(){
         return view('vistas.registro');
     }

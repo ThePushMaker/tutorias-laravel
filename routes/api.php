@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AlumnoTutoriaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\MateriaMaestroController;
@@ -26,9 +27,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Iniciar sesión
+Route::post('inicio_sesion',[HomeController::class,'iniciar_sesion']);
+
+// Registro
+Route::post('alumnos',[AlumnoController::class,'store']);
+
 // Alumnos
 Route::get('alumnos',[AlumnoController::class,'index']);
-Route::post('alumnos',[AlumnoController::class,'store']);
 Route::get('alumnos/{alumno}',[AlumnoController::class,'show']);
 Route::put('alumnos/{alumno}',[AlumnoController::class,'update']);
 Route::delete('alumnos/{alumno}',[AlumnoController::class,'destroy']);
