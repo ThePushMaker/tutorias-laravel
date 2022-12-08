@@ -17,7 +17,7 @@ class TutoriaController extends Controller
      */
     public function index()
     {
-        $tutoria = TutoriasDisponibles::with('solicitud')->with('tutor')->with('materia')->get();
+        $tutoria = TutoriasDisponibles::with('tutor')->with('materia')->get();
 
         return response([
             'status'    => true,
@@ -46,13 +46,14 @@ class TutoriaController extends Controller
         $data = $request->all();
 
         $tutoria = TutoriasDisponibles::create([
-            'desc_temas_impartir'   => $data['desc_temas_impartir'],
-            'horario_pref_sesiones' => $data['horario_pref_sesiones'],
-            'capacidad_maxima'      => $data['capacidad_maxima'],
-            'estado'                => $data['estado'],
-            'materia_id'            => $data['materia_id'],
-            'tutor_id'              => $data['tutor_id'],
-            'solicitud_id'          => $data['solicitud_id'],
+            'temas'             => $data['temas'],
+            'fecha_reunion'     => $data['fecha_reunion'],
+            'hora_reunion'      => $data['hora_reunion'],
+            'enlace_reunion'    => $data['enlace_reunion'],
+            'estado'            => 'Activa',
+            'capacidad_maxima'  => $data['capacidad_maxima'],
+            'materia_id'        => $data['materia_id'],
+            'tutor_id'          => $data['tutor_id'],
         ]);
 
         if($tutoria){
@@ -64,7 +65,7 @@ class TutoriaController extends Controller
             return response([
                 'status' => false,
                 'msg'    => 'Ocurrio un error al intentar guardar la tutoria'
-            ]);
+            ],403);
         }
     }
 
@@ -76,7 +77,7 @@ class TutoriaController extends Controller
      */
     public function show(TutoriasDisponibles $tutoria)
     {
-        $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->with('solicitud')->with('tutor')->with('materia')->get();
+        $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->with('tutor')->with('materia')->get();
 
         if($tutoria){
             return response([
@@ -87,7 +88,7 @@ class TutoriaController extends Controller
             return response([
                 'status'=> true,
                 'msg'   => 'No se pudo encontrar la información de la tutoria'
-            ]); 
+            ],404); 
         }
     }
 
@@ -114,13 +115,14 @@ class TutoriaController extends Controller
         if($tutoria){
             $data = $request->all();
           
-            $tutoria->desc_temas_impartir     = $data['desc_temas_impartir'];
-            $tutoria->horario_pref_sesiones   = $data['horario_pref_sesiones'];
-            $tutoria->capacidad_maxima        = $data['capacidad_maxima'];
-            $tutoria->estado                  = $data['estado'];
-            $tutoria->materia_id              = $data['materia_id'];
-            $tutoria->tutor_id                = $data['tutor_id'];
-            $tutoria->solicitud_id            = $data['solicitud_id'];
+            $tutoria->temas               = $data['temas'];
+            $tutoria->fecha_reunion       = $data['fecha_reunion'];
+            $tutoria->hora_reunion        = $data['hora_reunion'];
+            $tutoria->enlace_reunion      = $data['enlace_reunion'];
+            $tutoria->estado              = $data['estado'];
+            $tutoria->capacidad_maxima    = $data['capacidad_maxima'];
+            $tutoria->materia_id          = $data['materia_id'];
+            $tutoria->tutor_id            = $data['tutor_id'];
 
             if($tutoria->save()){
                 return response([
@@ -131,13 +133,13 @@ class TutoriaController extends Controller
                 return response([
                     'status' => false,
                     'msg'    => 'Ocurrio un error al intentar actualizar la tutoria'
-                ]);
+                ],403);
             }
         }else{
             return response([
                 'status' => false,
                 'msg'    => 'No se pudo obtener la información del tutoria'
-            ]);
+            ],404);
         }
     }
 
@@ -158,7 +160,7 @@ class TutoriaController extends Controller
             return response([
                 'status'=> false,
                 'msg'   => "No fue posible eliminar la tutoria"
-            ]);
+            ],403);
         }
     }
 }

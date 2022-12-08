@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tutorias_disponibles', function (Blueprint $table) {
             $table->id();
-            $table->string('temas');//descripción de los temas a impartir
+            $table->string('temas')->nullable();//descripción de los temas a impartir
             $table->date('fecha_reunion');
             $table->time('hora_reunion');
             $table->string('enlace_reunion');

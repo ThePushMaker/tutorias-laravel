@@ -65,7 +65,7 @@ Route::get('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaControlle
 Route::put('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaController::class,'update']);
 Route::delete('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaController::class,'destroy']);
 
-// Tutorias disponibles -
+// Tutorias disponibles 
 Route::get('tutorias',[TutoriaController::class,'index']);
 Route::post('tutorias',[TutoriaController::class,'store']);
 Route::get('tutorias/{tutoria}',[TutoriaController::class,'show']);
