@@ -9,6 +9,23 @@ use Illuminate\Http\Request;
 
 class TutorMateriaController extends Controller
 {
+
+
+    public function getMateriasDisponibles($tutor_id){
+        $materiasDisponibles=TutoresMaterias::where('tutor_id',$tutor_id)->with('materia')->with('tutor')->get();
+
+        if($materiasDisponibles){
+            return response([
+                'status'   => true,
+                'materiasDisponibles' => $materiasDisponibles,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar obtener las materiasDisponibles'
+            ],403);
+        }
+    }
     /**
      * Display a listing of the resource.
      *

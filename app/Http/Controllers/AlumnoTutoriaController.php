@@ -9,6 +9,39 @@ use Illuminate\Http\Request;
 
 class AlumnoTutoriaController extends Controller
 {
+
+    public function getAlumnosTutoria($tutoria_id){
+        $alumnos_inscritos=AlumnosEnTutorias::where('tutoria_id',$tutoria_id)->with('tutoria')->with('alumno')->get();
+
+        if($alumnos_inscritos){
+            return response([
+                'status'   => true,
+                'alumnos_inscritos' => $alumnos_inscritos,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar obtener los alumnos_inscritos'
+            ],403);
+        }
+    }
+
+    public function getTutoriasAlumno($alumno_id){
+        $tutorias_inscritos=AlumnosEnTutorias::where('alumno_id',$alumno_id)->with('tutoria')->with('alumno')->get();
+
+        if($tutorias_inscritos){
+            return response([
+                'status'   => true,
+                'tutorias_inscritos' => $tutorias_inscritos,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar obtener los tutorias_inscritos'
+            ],403);
+        }
+    }
+    
     /**
      * Display a listing of the resource.
      *

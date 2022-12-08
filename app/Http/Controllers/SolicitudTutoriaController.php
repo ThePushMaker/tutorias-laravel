@@ -10,6 +10,22 @@ use Illuminate\Http\Request;
 class SolicitudTutoriaController extends Controller
 {
 
+    public function getSolicitudesAceptadas($tutor_id){
+        $solicitudes_aceptadas=SolicitudesTutorias::where('tutor_id',$tutor_id)->where('estado','Aceptada')->with('tutor')->with('maestro')->with('materia')->get();
+
+        if($solicitudes_aceptadas){
+            return response([
+                'status'   => true,
+                'solicitudes_aceptadas' => $solicitudes_aceptadas,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar obtener las solicitudes_aceptadas'
+            ],403);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
