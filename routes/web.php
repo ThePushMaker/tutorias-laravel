@@ -28,6 +28,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/inicio_sesion', [App\Http\Controllers\HomeController::class, 'inicio_sesion']);;
 Route::get('/registro', [App\Http\Controllers\HomeController::class, 'registro']);
 
+// calendar api
+Route::get('/calendar_api', [App\Http\Controllers\HomeController::class, 'calendarApi']);
 
 // Dashboard Profesores
 // Solicitudes tutorias

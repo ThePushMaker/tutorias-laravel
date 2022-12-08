@@ -21,22 +21,22 @@ class DatabaseSeeder extends Seeder
             'materias',
             'alumnos',
             'maestros',
-            'solicitudes_tutorias',
-            'tutorias_disponibles',
-            'alumnos_en_tutorias',
-            'materias_maestros',
-            'sesiones',
+            'materias_maestros', //
+            'solicitudes_tutorias',//
+            'tutores_materias', //
+            'tutorias_disponibles',//
+            'alumnos_en_tutorias', //
         ]);
 
         // Ejecutar los seeders:
         $this->call(MateriasSeeder::class);
         $this->call(AlumnosSeeder::class);
         $this->call(MaestrosSeeder::class);
-        $this->call(SolicitudesTutoriasSeeder::class);
-        $this->call(TutoriasDisponiblesSeeder::class);
-        $this->call(AlumnosEnTutoriasSeeder::class);
-        $this->call(MateriasMaestrosSeeder::class);
-        $this->call(SesionesSeeder::class);
+        $this->call(MateriasMaestrosSeeder::class); //--
+        $this->call(SolicitudesTutoriasSeeder::class); //--
+        $this->call(TutoresMateriasSeeder::class); //--
+        $this->call(TutoriasDisponiblesSeeder::class); //--
+        $this->call(AlumnosEnTutoriasSeeder::class); //--
         
     }
 

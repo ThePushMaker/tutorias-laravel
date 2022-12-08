@@ -10,13 +10,15 @@ class TutoriasDisponibles extends Model
     use HasFactory;
 
     protected $fillable = [
-        'desc_temas_impartir',
-        'horario_pref_sesiones',
-        'capacidad_maxima',
+        'temas',
+        'fecha_reunion',
+        'hora_reunion',
+        'enlace_reunion',
         'estado',
+        'capacidad_maxima',
         'materia_id',
-        'tutor_id',
-        'solicitud_id'
+        'tutor_id'
+        // 'solicitud_id'
     ];
 
     protected $hidden=[ 
@@ -28,9 +30,9 @@ class TutoriasDisponibles extends Model
         return $this->hasOne(Alumnos::class,'id','tutor_id');
     }
     public function materia(){
-        return $this->hasOne(Materias::class,'id','materia_id');
+        return $this->hasOne(TutoresMaterias::class,'id','materia_id');
     }
-    public function solicitud(){
-        return $this->hasOne(SolicitudesTutorias::class,'id','solicitud_id');
-    }
+    // public function solicitud(){
+    //     return $this->hasOne(SolicitudesTutorias::class,'id','solicitud_id');
+    // }
 }

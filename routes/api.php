@@ -9,6 +9,7 @@ use App\Http\Controllers\MateriaMaestroController;
 use App\Http\Controllers\SesionController;
 use App\Http\Controllers\SolicitudTutoriaController;
 use App\Http\Controllers\TutoriaController;
+use App\Http\Controllers\TutorMateriaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,7 +65,7 @@ Route::get('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaControlle
 Route::put('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaController::class,'update']);
 Route::delete('solicitudes_tutorias/{solicitud_tutoria}',[SolicitudTutoriaController::class,'destroy']);
 
-// Tutorias disponibles 
+// Tutorias disponibles -
 Route::get('tutorias',[TutoriaController::class,'index']);
 Route::post('tutorias',[TutoriaController::class,'store']);
 Route::get('tutorias/{tutoria}',[TutoriaController::class,'show']);
@@ -78,9 +79,16 @@ Route::get('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'
 Route::put('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'update']);
 Route::delete('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'destroy']);
 
+//Tutores Materias -
+Route::get('tutores_materias',[TutorMateriaController::class,'index']);
+Route::post('tutores_materias',[TutorMateriaController::class,'store']);
+Route::get('tutores_materias/{tutor_materia}',[TutorMateriaController::class,'show']);
+Route::put('tutores_materias/{tutor_materia}',[TutorMateriaController::class,'update']);
+Route::delete('tutores_materias/{tutor_materia}',[TutorMateriaController::class,'destroy']);
+
 //Sesiones 
-Route::get('sesiones',[SesionController::class,'index']);
-Route::post('sesiones',[SesionController::class,'store']);
-Route::get('sesiones/{sesion}',[SesionController::class,'show']);
-Route::put('sesiones/{sesion}',[SesionController::class,'update']);
-Route::delete('sesiones/{sesion}',[SesionController::class,'destroy']);
+// Route::get('sesiones',[SesionController::class,'index']);
+// Route::post('sesiones',[SesionController::class,'store']);
+// Route::get('sesiones/{sesion}',[SesionController::class,'show']);
+// Route::put('sesiones/{sesion}',[SesionController::class,'update']);
+// Route::delete('sesiones/{sesion}',[SesionController::class,'destroy']);

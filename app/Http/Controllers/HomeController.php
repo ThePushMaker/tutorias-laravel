@@ -79,6 +79,12 @@ class HomeController extends Controller
         return view('vistas.tutores.inicio');
     }
 
+    // api calendar
+    public function calendarApi()
+    {
+        return view('calendar-api');
+    }
+
     /**
      * Create a new controller instance.
      *

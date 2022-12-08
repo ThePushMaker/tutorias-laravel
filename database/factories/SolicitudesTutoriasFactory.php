@@ -22,7 +22,8 @@ class SolicitudesTutoriasFactory extends Factory
         return [
             'comentario' =>  fake()->paragraph(1),
             'promedio_obtenido' => fake()->numberBetween(80, 100),
-            'estado' =>  fake()->randomElement(['Pendiente', 'Aceptada', 'Rechazada']),
+            // 'estado' =>  fake()->randomElement(['Pendiente', 'Aceptada', 'Rechazada']),
+            'estado' =>  'Rechazada',
             'materia_id' =>  Materias::all()->random()->id,
             'tutor_id' =>  Alumnos::all()->random()->id,
             'maestro_id' =>  Maestros::all()->random()->id,

@@ -58,7 +58,7 @@ class AlumnoTutoriaController extends Controller
             return response([
                 'status' => false,
                 'msg'    => 'Ocurrio un error al intentar guardar al alumno_tutoria'
-            ]);
+            ],404);
         }
     }
 
