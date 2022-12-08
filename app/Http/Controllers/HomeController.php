@@ -10,62 +10,66 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function iniciar_sesion(IniciarSesionRequest $request){
+    public function iniciar_sesion(IniciarSesionRequest $request)
+    {
 
         $data = $request->all();
-            
+
         $maestro = Maestros::where('correo', $data['correo'])->where('contraseña', $data['contraseña'])->get()->first();
         $alumno = Alumnos::where('correo', $data['correo'])->where('contraseña', $data['contraseña'])->get()->first();
 
-        if($alumno!=null){
+        if ($alumno != null) {
             return response([
                 'status'   => true,
                 'msg'   => 'Iniciando sesión...',
-                'tipo_cuenta'  => 'Alumno',
+                'tipo_cuenta'  => 'alumno',
                 'usuario'  => $alumno,
                 // 'data'  => $data
             ]);
-        }else if($maestro!=null ){
+        } else if ($maestro != null) {
             return response([
                 'status'   => true,
                 'msg'   => 'Iniciando sesión...',
-                'tipo_cuenta'   => 'Maestro',
+                'tipo_cuenta'   => 'profesor',
                 'usuario'  => $maestro,
                 // 'data'  => $data
             ]);
-        }
-        else{
+        } else {
             return response([
-                'status'=> false,
+                'status' => false,
                 'msg'   => 'Datos incorrectos',
                 'alumno'  => $alumno,
                 'maestro'  => $maestro,
                 // 'data'  => $data
-            ]); 
+            ]);
         }
-    
     }
 
 
-    public function registro(){
+    public function registro()
+    {
         return view('vistas.registro');
     }
-    public function inicio_sesion(){
+    public function inicio_sesion()
+    {
         return view('vistas.inicio_sesion');
     }
 
     // dashboard profesores
-    public function profesoresInicio(){
+    public function profesoresInicio()
+    {
         return view('vistas.profesores.solicitudes_list');
     }
-    public function solicitudEditar(){
+    public function solicitudEditar()
+    {
         return view('vistas.profesores.solicitudes_edit');
     }
 
-    
+
 
     // dashboard alumnos
-    public function alumnosInicio(){
+    public function alumnosInicio()
+    {
         return view('vistas.alumnos.tutorias_list');
     }
 
@@ -73,7 +77,8 @@ class HomeController extends Controller
 
 
     // dashboard tutores
-    public function tutoresInicio(){
+    public function tutoresInicio()
+    {
         return view('vistas.tutores.inicio');
     }
 
