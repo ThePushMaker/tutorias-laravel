@@ -38,10 +38,7 @@ class HomeController extends Controller
             return response([
                 'status' => false,
                 'msg'   => 'Datos incorrectos',
-                'alumno'  => $alumno,
-                'maestro'  => $maestro,
-                // 'data'  => $data
-            ]);
+            ], 401);
         }
     }
 
