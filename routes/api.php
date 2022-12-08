@@ -79,7 +79,7 @@ Route::get('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'
 Route::put('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'update']);
 Route::delete('alumnos_tutorias/{alumno_tutoria}',[AlumnoTutoriaController::class,'destroy']);
 
-//Tutores Materias -
+//Tutores Materias
 Route::get('tutores_materias',[TutorMateriaController::class,'index']);
 Route::post('tutores_materias',[TutorMateriaController::class,'store']);
 Route::get('tutores_materias/{tutor_materia}',[TutorMateriaController::class,'show']);
