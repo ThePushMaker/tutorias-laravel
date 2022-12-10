@@ -27,7 +27,6 @@ class ActualizarMaestroRequest extends FormRequest
             'nombre' => "required",
             'correo' => "required|unique:maestros,correo,".$this->route('maestro')->id,
             'contraseña' => "required",
-            'estado_cuenta' => "required"
         ];
     }
 }

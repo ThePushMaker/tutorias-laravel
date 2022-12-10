@@ -127,7 +127,6 @@ class MaestroController extends Controller
             $maestro->nombre         = $data['nombre'];
             $maestro->correo         = $data['correo'];
             $maestro->contraseña     = $data['contraseña'];
-            $maestro->estado_cuenta  = $data['estado_cuenta'];
 
             if($maestro->save()){
                 return response([
