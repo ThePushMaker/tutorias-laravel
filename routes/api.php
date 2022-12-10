@@ -97,3 +97,6 @@ Route::get('tutorias_inscritos/{alumno_id}',[AlumnoTutoriaController::class,'get
 
 //obtener todas las solicitudes de tutorias aceptadas de un tutor
 Route::get('solicitudes_aceptadas/{tutor_id}',[SolicitudTutoriaController::class,'getSolicitudesAceptadas']);
+
+//obtener todas las tutorias que imparte  un tutor (que el ha creado) :para mis tutorias vista
+Route::get('tutorias_creadas/{tutor_id}',[TutoriaController::class,'getTutoriasCreadas']);

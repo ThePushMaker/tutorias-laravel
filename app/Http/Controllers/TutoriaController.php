@@ -10,6 +10,24 @@ use Illuminate\Http\Request;
 
 class TutoriaController extends Controller
 {
+
+    public function getTutoriasCreadas($tutor_id){
+        $tutorias_creadas=TutoriasDisponibles::where('tutor_id',$tutor_id)->with('materia')->get();
+
+        if($tutorias_creadas){
+            return response([
+                'status'   => true,
+                'tutorias_creadas' => $tutorias_creadas,
+            ]);
+        }else{
+            return response([
+                'status' => false,
+                'msg'    => 'Ocurrio un error al intentar obtener las tutorias_creadas'
+            ],403);
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      *
