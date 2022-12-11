@@ -6,6 +6,7 @@ use App\Http\Requests\ActualizarTutoriaRequest;
 use App\Http\Requests\GuardarTutoriaRequest;
 use App\Models\tutoria;
 use App\Models\TutoriasDisponibles;
+use App\Models\AlumnosEnTutorias;
 use Illuminate\Http\Request;
 
 class TutoriaController extends Controller
@@ -13,6 +14,11 @@ class TutoriaController extends Controller
 
     public function getTutoriasCreadas($tutor_id){
         $tutorias_creadas=TutoriasDisponibles::where('tutor_id',$tutor_id)->with('materia.materia')->get();
+        
+        foreach ($tutorias_creadas as $tutoria) {
+            $alumnos_inscritos = AlumnosEnTutorias::where('tutoria_id',$tutoria->materia_id)->with('alumno')->get();
+            $tutoria->alumnos_inscritos = $alumnos_inscritos;
+        }
 
         if($tutorias_creadas){
             return response([
