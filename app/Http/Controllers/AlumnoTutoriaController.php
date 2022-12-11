@@ -27,8 +27,17 @@ class AlumnoTutoriaController extends Controller
     }
 
     public function getTutoriasAlumno($alumno_id){
-        $tutorias_inscritos=AlumnosEnTutorias::where('alumno_id',$alumno_id)->with('tutoria')->with('alumno')->get();
-
+        $tutorias_inscritos=AlumnosEnTutorias::where('alumno_id',$alumno_id)->with(['tutoria' => function ($query) {
+            $query->with(['materia.materia' => function($query){
+                $query->select('id', 'nombre');
+            }])
+            ->get();
+            $query->with(['tutor' => function($query){
+                $query->get();
+            }])
+            ->get();
+        }])->get();
+        
         if($tutorias_inscritos){
             return response([
                 'status'   => true,
