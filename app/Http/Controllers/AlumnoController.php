@@ -139,8 +139,6 @@ class AlumnoController extends Controller
             $alumno->nombre         = $data['nombre'];
             $alumno->correo         = $data['correo'];
             $alumno->contraseña     = $data['contraseña'];
-            $alumno->tipo_cuenta    = $data['tipo_cuenta'];
-            $alumno->estado_cuenta  = $data['estado_cuenta'];
             $alumno->semestre       = $data['semestre'];
             $alumno->numero_control = $data['numero_control'];
 
@@ -193,5 +191,27 @@ class AlumnoController extends Controller
         //     'res'=>true,
         //     'mensaje'=>'paciente eliminado correctamente'
         // ],200);
+    }
+
+    public function updateAccountType(Alumnos $alumno) 
+    {
+        if($alumno && $alumno->tipo_cuenta === 'Alumno') {
+            $alumno->tipo_cuenta = 'Tutor';
+            
+            if($alumno->save()) {
+                return response([
+                    'alumno'   => $alumno
+                ]);
+            } else {
+                return response([
+                    'status' => false,
+                    'msg'    => 'Ocurrio un error al intentar actualizar el alumno'
+                ], 400);
+            } 
+        } else {
+            return response([
+                'msg'    => 'El alumno ya es un tutor'
+            ], 401);
+        }
     }
 }

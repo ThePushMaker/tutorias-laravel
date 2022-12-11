@@ -39,6 +39,8 @@ Route::get('alumnos',[AlumnoController::class,'index']);
 Route::get('alumnos/{alumno}',[AlumnoController::class,'show']);
 Route::put('alumnos/{alumno}',[AlumnoController::class,'update']);
 Route::delete('alumnos/{alumno}',[AlumnoController::class,'destroy']);
+// Actualizar tipo de cuenta de "alumno" a "tutor"
+Route::put('alumnos/tutor/{alumno}', [AlumnoController::class, 'updateAccountType']);
 
 // Maestros
 Route::get('maestros',[MaestroController::class,'index']);
