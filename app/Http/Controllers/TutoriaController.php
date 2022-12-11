@@ -12,7 +12,7 @@ class TutoriaController extends Controller
 {
 
     public function getTutoriasCreadas($tutor_id){
-        $tutorias_creadas=TutoriasDisponibles::where('tutor_id',$tutor_id)->with('materia')->get();
+        $tutorias_creadas=TutoriasDisponibles::where('tutor_id',$tutor_id)->with('materia.materia')->get();
 
         if($tutorias_creadas){
             return response([
