@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActualizarAlumnoTutoriaRequest;
 use App\Http\Requests\GuardarAlumnoTutoriaRequest;
+use App\Models\Alumnos;
 use App\Models\AlumnosEnTutorias;
+use App\Models\Materias;
+use App\Models\TutoriasDisponibles;
 use Illuminate\Http\Request;
 
 class AlumnoTutoriaController extends Controller
@@ -29,16 +32,15 @@ class AlumnoTutoriaController extends Controller
 
     public function getTutoriasAlumno($alumno_id)
     {
-        $tutorias_inscritos = AlumnosEnTutorias::where('alumno_id', $alumno_id)->with(['tutoria' => function ($query) {
-            $query->with(['materia.materia' => function ($query) {
-                $query->select('id', 'nombre');
-            }])
-                ->get();
-            $query->with(['tutor' => function ($query) {
-                $query->get();
-            }])
-                ->get();
-        }])->get();
+        $tutorias_inscritos = AlumnosEnTutorias::where('alumno_id', $alumno_id)->get();
+
+        foreach ($tutorias_inscritos as $tutoria) {
+            $tutorias_disponibles = TutoriasDisponibles::where('id', $tutoria->tutoria_id)->first();
+            $tutoria->materia = $tutorias_disponibles;
+            $tutor = Alumnos::where('id', $tutoria->id)->first();
+            $tutoria->tutor = $tutor;
+            $tutoria->materia->nombre = Materias::where('id', $tutorias_disponibles->id)->first()->nombre;
+        }
 
         if ($tutorias_inscritos) {
             return response([
