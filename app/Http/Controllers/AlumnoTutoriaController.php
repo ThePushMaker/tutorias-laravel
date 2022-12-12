@@ -36,7 +36,7 @@ class AlumnoTutoriaController extends Controller
 
         foreach ($tutorias_inscritos as $tutoria) {
             $tutorias_disponibles = TutoriasDisponibles::where('id', $tutoria->tutoria_id)->first();
-            $tutoria->materia = Materias::where('id', $tutorias_disponibles->id)->first();
+            $tutoria->materia = Materias::where('id', $tutorias_disponibles->materia_id)->first();
             $tutor = Alumnos::where('id', $tutorias_disponibles->tutor_id)->first();
             $tutoria->tutor = $tutor;
             $tutoria->tutoria = $tutorias_disponibles;
