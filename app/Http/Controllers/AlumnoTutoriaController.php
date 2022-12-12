@@ -10,55 +10,57 @@ use Illuminate\Http\Request;
 class AlumnoTutoriaController extends Controller
 {
 
-    public function getAlumnosTutoria($tutoria_id){
-        $alumnos_inscritos=AlumnosEnTutorias::where('tutoria_id',$tutoria_id)->with('tutoria')->with('alumno')->get();
+    public function getAlumnosTutoria($tutoria_id)
+    {
+        $alumnos_inscritos = AlumnosEnTutorias::where('tutoria_id', $tutoria_id)->with('tutoria')->with('alumno')->get();
 
-        if($alumnos_inscritos){
+        if ($alumnos_inscritos) {
             return response([
                 'status'   => true,
                 'alumnos_inscritos' => $alumnos_inscritos,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
                 'msg'    => 'Ocurrio un error al intentar obtener los alumnos_inscritos'
-            ],403);
+            ], 403);
         }
     }
 
-    public function getTutoriasAlumno($alumno_id){
-        $tutorias_inscritos=AlumnosEnTutorias::where('alumno_id',$alumno_id)->with(['tutoria' => function ($query) {
-            $query->with(['materia.materia' => function($query){
+    public function getTutoriasAlumno($alumno_id)
+    {
+        $tutorias_inscritos = AlumnosEnTutorias::where('alumno_id', $alumno_id)->with(['tutoria' => function ($query) {
+            $query->with(['materia.materia' => function ($query) {
                 $query->select('id', 'nombre');
             }])
-            ->get();
-            $query->with(['tutor' => function($query){
+                ->get();
+            $query->with(['tutor' => function ($query) {
                 $query->get();
             }])
-            ->get();
+                ->get();
         }])->get();
-        
-        if($tutorias_inscritos){
+
+        if ($tutorias_inscritos) {
             return response([
                 'status'   => true,
                 'tutorias_inscritos' => $tutorias_inscritos,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
                 'msg'    => 'Ocurrio un error al intentar obtener los tutorias_inscritos'
-            ],403);
+            ], 403);
         }
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($tutoria_id)
     {
-        $AlumnosEnTutorias = AlumnosEnTutorias::with('tutoria')->with('alumno')->get();
+        $AlumnosEnTutorias = AlumnosEnTutorias::where('tutoria_id', $tutoria_id)->with('tutoria')->with('alumno')->get();
 
         return response([
             'status'    => true,
@@ -91,16 +93,16 @@ class AlumnoTutoriaController extends Controller
             'tutoria_id'         => $data['tutoria_id'],
         ]);
 
-        if($alumno_tutoria){
+        if ($alumno_tutoria) {
             return response([
                 'status'   => true,
                 'alumno_tutoria' => $alumno_tutoria,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
                 'msg'    => 'Ocurrio un error al intentar guardar al alumno_tutoria'
-            ],403);
+            ], 403);
         }
     }
 
@@ -114,16 +116,16 @@ class AlumnoTutoriaController extends Controller
     {
         $alumno_tutoria = AlumnosEnTutorias::where('id', $alumno_tutoria->id)->with('tutoria')->with('alumno')->get();
 
-        if($alumno_tutoria){
+        if ($alumno_tutoria) {
             return response([
                 'status'   => true,
                 'alumno_tutoria'   => $alumno_tutoria
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> true,
+                'status' => true,
                 'msg'   => 'No se pudo encontrar la información del alumno_tutoria'
-            ]); 
+            ]);
         }
     }
 
@@ -147,24 +149,24 @@ class AlumnoTutoriaController extends Controller
      */
     public function update(ActualizarAlumnoTutoriaRequest $request, AlumnosEnTutorias $alumno_tutoria)
     {
-        if($alumno_tutoria){
+        if ($alumno_tutoria) {
             $data = $request->all();
-          
+
             $alumno_tutoria->alumno_id         = $data['alumno_id'];
             $alumno_tutoria->tutoria_id         = $data['tutoria_id'];
 
-            if($alumno_tutoria->save()){
+            if ($alumno_tutoria->save()) {
                 return response([
                     'status'   => true,
                     'alumno_tutoria' => $alumno_tutoria,
                 ]);
-            }else{
+            } else {
                 return response([
                     'status' => false,
                     'msg'    => 'Ocurrio un error al intentar actualizar el alumno_tutoria'
                 ]);
             }
-        }else{
+        } else {
             return response([
                 'status' => false,
                 'msg'    => 'No se pudo obtener la información del alumno_tutoria'
@@ -180,14 +182,14 @@ class AlumnoTutoriaController extends Controller
      */
     public function destroy(AlumnosEnTutorias $alumno_tutoria)
     {
-        if($alumno_tutoria->delete()){
+        if ($alumno_tutoria->delete()) {
             return response([
-                'status'=> true,
+                'status' => true,
                 'msg'   => "Se ha eliminado al alumno_tutoria"
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> false,
+                'status' => false,
                 'msg'   => "No fue posible eliminar al alumno_tutoria"
             ]);
         }
