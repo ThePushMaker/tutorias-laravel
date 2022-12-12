@@ -5,24 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActualizarSolicitudTutoriaRequest;
 use App\Http\Requests\GuardarSolicitudTutoriaRequest;
 use App\Models\SolicitudesTutorias;
+use App\Models\TutoresMaterias;
 use Illuminate\Http\Request;
 
 class SolicitudTutoriaController extends Controller
 {
 
-    public function getSolicitudesAceptadas($tutor_id){
-        $solicitudes_aceptadas=SolicitudesTutorias::where('tutor_id',$tutor_id)->where('estado','Aceptada')->with('tutor')->with('maestro')->with('materia')->get();
+    public function getSolicitudesAceptadas($tutor_id)
+    {
+        $solicitudes_aceptadas = SolicitudesTutorias::where('tutor_id', $tutor_id)->where('estado', 'Aceptada')->with('tutor')->with('maestro')->with('materia')->get();
 
-        if($solicitudes_aceptadas){
+        if ($solicitudes_aceptadas) {
             return response([
-                'status'   => true,
+                'status' => true,
                 'solicitudes_aceptadas' => $solicitudes_aceptadas,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
-                'msg'    => 'Ocurrio un error al intentar obtener las solicitudes_aceptadas'
-            ],403);
+                'msg' => 'Ocurrio un error al intentar obtener las solicitudes_aceptadas'
+            ], 403);
         }
     }
 
@@ -36,7 +38,7 @@ class SolicitudTutoriaController extends Controller
         $solicitudes_tutorias = SolicitudesTutorias::with('tutor')->with('materia')->with('maestro')->get();
 
         return response([
-            'status'    => true,
+            'status' => true,
             'Solicitudes_tutorias' => $solicitudes_tutorias
         ]);
     }
@@ -62,23 +64,23 @@ class SolicitudTutoriaController extends Controller
         $data = $request->all();
 
         $solicitud_tutoria = SolicitudesTutorias::create([
-            'comentario'        => $data['comentario'],
+            'comentario' => $data['comentario'],
             'promedio_obtenido' => $data['promedio_obtenido'],
-            'estado'            => $data['estado'],
-            'materia_id'        => $data['materia_id'],
-            'tutor_id'          => $data['tutor_id'],
-            'maestro_id'        => $data['maestro_id'],
+            'estado' => $data['estado'],
+            'materia_id' => $data['materia_id'],
+            'tutor_id' => $data['tutor_id'],
+            'maestro_id' => $data['maestro_id'],
         ]);
 
-        if($solicitud_tutoria){
+        if ($solicitud_tutoria) {
             return response([
-                'status'   => true,
+                'status' => true,
                 'solicitud_tutoria' => $solicitud_tutoria,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
-                'msg'    => 'Ocurrio un error al intentar guardar la solicitud_tutoria'
+                'msg' => 'Ocurrio un error al intentar guardar la solicitud_tutoria'
             ]);
         }
     }
@@ -93,16 +95,16 @@ class SolicitudTutoriaController extends Controller
     {
         $solicitud_tutoria = SolicitudesTutorias::with('tutor')->with('materia')->with('maestro')->where('id', $solicitud_tutoria->id)->get();
 
-        if($solicitud_tutoria){
+        if ($solicitud_tutoria) {
             return response([
-                'status'   => true,
-                'solicitud_tutoria'   => $solicitud_tutoria
+                'status' => true,
+                'solicitud_tutoria' => $solicitud_tutoria
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> true,
-                'msg'   => 'No se pudo encontrar la información de la solicitud_tutoria'
-            ]); 
+                'status' => true,
+                'msg' => 'No se pudo encontrar la información de la solicitud_tutoria'
+            ]);
         }
     }
 
@@ -126,31 +128,39 @@ class SolicitudTutoriaController extends Controller
      */
     public function update(ActualizarSolicitudTutoriaRequest $request, SolicitudesTutorias $solicitud_tutoria)
     {
-        if($solicitud_tutoria){
+        if ($solicitud_tutoria) {
             $data = $request->all();
-          
-            $solicitud_tutoria->comentario          = $data['comentario'];
-            $solicitud_tutoria->promedio_obtenido   = $data['promedio_obtenido'];
-            $solicitud_tutoria->estado              = $data['estado'];
-            $solicitud_tutoria->materia_id          = $data['materia_id'];
-            $solicitud_tutoria->tutor_id            = $data['tutor_id'];
-            $solicitud_tutoria->maestro_id          = $data['maestro_id'];
 
-            if($solicitud_tutoria->save()){
-                return response([
-                    'status'   => true,
-                    'solicitud_tutoria' => $solicitud_tutoria,
+            $solicitud_tutoria->comentario = $data['comentario'];
+            $solicitud_tutoria->promedio_obtenido = $data['promedio_obtenido'];
+            $solicitud_tutoria->estado = $data['estado'];
+            $solicitud_tutoria->materia_id = $data['materia_id'];
+            $solicitud_tutoria->tutor_id = $data['tutor_id'];
+            $solicitud_tutoria->maestro_id = $data['maestro_id'];
+
+            if ($solicitud_tutoria->save()) {
+                $tutores_materias = TutoresMaterias::create([
+                    "tutor_id" => $data["tutor_id"],
+                    "materia_id" => $data["materia_id"]
                 ]);
-            }else{
+
+                if($tutores_materias) {
+                    return response([
+                        'status' => true,
+                        'solicitud_tutoria' => $solicitud_tutoria,
+                    ]);
+                }
+
+            } else {
                 return response([
                     'status' => false,
-                    'msg'    => 'Ocurrio un error al intentar actualizar la solicitud_tutoria'
+                    'msg' => 'Ocurrio un error al intentar actualizar la solicitud_tutoria'
                 ]);
             }
-        }else{
+        } else {
             return response([
                 'status' => false,
-                'msg'    => 'No se pudo obtener la información de la solicitud_tutoria'
+                'msg' => 'No se pudo obtener la información de la solicitud_tutoria'
             ]);
         }
     }
@@ -163,15 +173,15 @@ class SolicitudTutoriaController extends Controller
      */
     public function destroy(SolicitudesTutorias $solicitud_tutoria)
     {
-        if($solicitud_tutoria->delete()){
+        if ($solicitud_tutoria->delete()) {
             return response([
-                'status'=> true,
-                'msg'   => "Se ha eliminado la solicitud de tutoria"
+                'status' => true,
+                'msg' => "Se ha eliminado la solicitud de tutoria"
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> false,
-                'msg'   => "No fue posible eliminar la solicitud de tutoria"
+                'status' => false,
+                'msg' => "No fue posible eliminar la solicitud de tutoria"
             ]);
         }
     }
