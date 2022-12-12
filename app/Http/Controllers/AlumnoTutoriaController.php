@@ -39,6 +39,7 @@ class AlumnoTutoriaController extends Controller
             $tutoria->materia = Materias::where('id', $tutorias_disponibles->id)->first();
             $tutor = Alumnos::where('id', $tutorias_disponibles->tutor_id)->first();
             $tutoria->tutor = $tutor;
+            $tutoria->tutoria = $tutorias_disponibles;
         }
 
         if ($tutorias_inscritos) {
