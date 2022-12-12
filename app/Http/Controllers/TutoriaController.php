@@ -16,11 +16,14 @@ class TutoriaController extends Controller
 
     public function getTutoriasCreadas($tutor_id)
     {
-        $tutorias_creadas = TutoriasDisponibles::where('tutor_id', $tutor_id)->with('materia.materia')->get();
+        $tutorias_creadas = TutoriasDisponibles::where('tutor_id', $tutor_id)->get();
 
         foreach ($tutorias_creadas as $tutoria) {
             $alumnos_inscritos = AlumnosEnTutorias::where('tutoria_id', $tutoria->materia_id)->with('alumno')->get();
             $tutoria->alumnos_inscritos = $alumnos_inscritos;
+
+            $materia = Materias::where('id', $tutoria->materia_id)->first();
+            $tutoria->materia = $materia;
         }
 
         if ($tutorias_creadas) {
