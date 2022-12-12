@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActualizarMateriaRequest;
 use App\Http\Requests\GuardarMateriaRequest;
 use App\Models\Materias;
+use App\Models\TutoresMaterias;
+use App\Models\TutoriasDisponibles;
 use Illuminate\Http\Request;
+use Mockery\Matcher\Closure;
 
 class MateriaController extends Controller
 {
@@ -14,13 +17,27 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id)
     {
         $materias = Materias::get();
 
+        if($user_id) {
+            $filteredMaterias = $materias->filter(function($materia) use ($user_id) {
+                return array_reduce(TutoriasDisponibles::where('tutor_id', $user_id)->get()->toArray(), function($carry, $element) use ($materia) {
+                    return $carry && $element['materia_id'] !== $materia['id'];
+                }, true);
+            });
+            
+    
+            return response([
+                'status'    => true,
+                'materias' => $filteredMaterias->values(),
+            ]);
+        }
+        
         return response([
             'status'    => true,
-            'materias' => $materias
+            'materias' => $materias,
         ]);
     }
 

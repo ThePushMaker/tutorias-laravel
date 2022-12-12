@@ -50,7 +50,7 @@ Route::put('maestros/{maestro}', [MaestroController::class, 'update']);
 Route::delete('maestros/{maestro}', [MaestroController::class, 'destroy']);
 
 // Materias 
-Route::get('materias', [MateriaController::class, 'index']);
+Route::get('materias/{user_id}', [MateriaController::class, 'index']);
 Route::post('materias', [MateriaController::class, 'store']);
 Route::get('materias/{materia}', [MateriaController::class, 'show']);
 Route::put('materias/{materia}', [MateriaController::class, 'update']);
