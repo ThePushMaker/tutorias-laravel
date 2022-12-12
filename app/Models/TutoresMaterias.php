@@ -25,4 +25,8 @@ class TutoresMaterias extends Model
     public function tutor(){
         return $this->hasOne(Alumnos::class,'id','tutor_id');
     }
+
+    public function tutoresMaterias() {
+        return $this->belongsToMany(TutoriasDisponibles::class, 'materia_id');
+    }
 }

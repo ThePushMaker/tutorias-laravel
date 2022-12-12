@@ -30,7 +30,7 @@ class TutoriasDisponibles extends Model
         return $this->hasOne(Alumnos::class,'id','tutor_id');
     }
     public function materia(){
-        return $this->hasOne(TutoresMaterias::class,'id','materia_id');
+        return $this->hasMany(TutoresMaterias::class,'materia_id','materia_id');
     }
     // public function solicitud(){
     //     return $this->hasOne(SolicitudesTutorias::class,'id','solicitud_id');

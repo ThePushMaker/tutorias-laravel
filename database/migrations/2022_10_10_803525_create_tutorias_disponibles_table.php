@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('capacidad_maxima');//de alumnos 
 
             $table->unsignedBigInteger('materia_id');
-            $table->foreign('materia_id')->references('id')->on('tutores_materias')->onDelete("cascade")->cascadeOnUpdate();
+            $table->foreign('materia_id')->references('materia_id')->on('tutores_materias')->onDelete("cascade")->cascadeOnUpdate();
 
             $table->unsignedBigInteger('tutor_id');
             $table->foreign('tutor_id')->references('id')->on('alumnos')->onDelete("cascade")->cascadeOnUpdate();
