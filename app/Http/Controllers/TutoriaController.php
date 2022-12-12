@@ -4,32 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActualizarTutoriaRequest;
 use App\Http\Requests\GuardarTutoriaRequest;
-use App\Models\tutoria;
+use App\Models\Alumnos;
+use App\Models\Materias;
 use App\Models\TutoriasDisponibles;
 use App\Models\AlumnosEnTutorias;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use MacsiDigital\Zoom\Facades\Zoom;
 
 class TutoriaController extends Controller
 {
 
-    public function getTutoriasCreadas($tutor_id){
-        $tutorias_creadas=TutoriasDisponibles::where('tutor_id',$tutor_id)->with('materia.materia')->get();
-        
+    public function getTutoriasCreadas($tutor_id)
+    {
+        $tutorias_creadas = TutoriasDisponibles::where('tutor_id', $tutor_id)->with('materia.materia')->get();
+
         foreach ($tutorias_creadas as $tutoria) {
-            $alumnos_inscritos = AlumnosEnTutorias::where('tutoria_id',$tutoria->materia_id)->with('alumno')->get();
+            $alumnos_inscritos = AlumnosEnTutorias::where('tutoria_id', $tutoria->materia_id)->with('alumno')->get();
             $tutoria->alumnos_inscritos = $alumnos_inscritos;
         }
 
-        if($tutorias_creadas){
+        if ($tutorias_creadas) {
             return response([
-                'status'   => true,
+                'status' => true,
                 'tutorias_creadas' => $tutorias_creadas,
             ]);
-        }else{
+        } else {
             return response([
                 'status' => false,
-                'msg'    => 'Ocurrio un error al intentar obtener las tutorias_creadas'
-            ],403);
+                'msg' => 'Ocurrio un error al intentar obtener las tutorias_creadas'
+            ], 403);
         }
     }
 
@@ -44,7 +47,7 @@ class TutoriaController extends Controller
         $tutoria = TutoriasDisponibles::with('tutor')->with('materia')->get();
 
         return response([
-            'status'    => true,
+            'status' => true,
             'tutoria' => $tutoria
         ]);
     }
@@ -70,27 +73,59 @@ class TutoriaController extends Controller
         $data = $request->all();
 
         $tutoria = TutoriasDisponibles::create([
-            'temas'             => $data['temas'],
-            'fecha_reunion'     => $data['fecha_reunion'],
-            'hora_reunion'      => $data['hora_reunion'],
-            'enlace_reunion'    => $data['enlace_reunion'],
-            'estado'            => 'Activa',
-            'capacidad_maxima'  => $data['capacidad_maxima'],
-            'materia_id'        => $data['materia_id'],
-            'tutor_id'          => $data['tutor_id'],
+            'temas' => $data['temas'],
+            'fecha_reunion' => $data['fecha_reunion'],
+            'hora_reunion' => $data['hora_reunion'],
+            'estado' => 'Activa',
+            'capacidad_maxima' => $data['capacidad_maxima'],
+            'materia_id' => $data['materia_id'],
+            'tutor_id' => $data['tutor_id'],
+            'enlace_reunion' => ''
         ]);
 
-        if($tutoria){
-            return response([
-                'status'   => true,
-                'tutoria' => $tutoria,
+        if ($tutoria) {
+            $materia = Materias::where("id", $data['materia_id'])->first();
+
+            $user = Zoom::user()->first();
+            $meeting = Zoom::meeting()->make([
+                'topic' => 'Tutoria: ' . $materia->nombre,
+                'type' => 8,
+                'start_time' => new Carbon(Carbon::parse($data['fecha_reunion'] . ' ' . $data['hora_reunion'], 'America/Mazatlan')),
+                // best to use a Carbon instance here.
+                'duration' => 60,
             ]);
-        }else{
-            return response([
-                'status' => false,
-                'msg'    => 'Ocurrio un error al intentar guardar la tutoria'
-            ],403);
+
+            $meeting->recurrence()->make([
+                'type' => 2,
+                'repeat_interval' => 0,
+                'weekly_days' => "0",
+                'end_times' => 5
+            ]);
+
+            $meeting->settings()->make([
+                'join_before_host' => true,
+                'approval_type' => 1,
+                'registration_type' => 2,
+                'enforce_login' => false,
+                'waiting_room' => false,
+            ]);
+
+            if ($user->meetings()->save($meeting)) {
+                $tutoria->enlace_reunion = $meeting->join_url;
+
+                if($tutoria->save()) {
+                    return response([
+                        'status' => true,
+                        'tutoria' => $tutoria,
+                    ]);
+                } 
+            }
         }
+
+        return response([
+            'status' => false,
+            'msg' => 'Ocurrio un error al intentar guardar la tutoria'
+        ], 403);
     }
 
     /**
@@ -103,16 +138,16 @@ class TutoriaController extends Controller
     {
         $tutoria = TutoriasDisponibles::where('id', $tutoria->id)->with('tutor')->with('materia')->get();
 
-        if($tutoria){
+        if ($tutoria) {
             return response([
-                'status'   => true,
-                'tutoria'   => $tutoria
+                'status' => true,
+                'tutoria' => $tutoria
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> true,
-                'msg'   => 'No se pudo encontrar la información de la tutoria'
-            ],404); 
+                'status' => true,
+                'msg' => 'No se pudo encontrar la información de la tutoria'
+            ], 404);
         }
     }
 
@@ -136,34 +171,34 @@ class TutoriaController extends Controller
      */
     public function update(ActualizarTutoriaRequest $request, TutoriasDisponibles $tutoria)
     {
-        if($tutoria){
+        if ($tutoria) {
             $data = $request->all();
-          
-            $tutoria->temas               = $data['temas'];
-            $tutoria->fecha_reunion       = $data['fecha_reunion'];
-            $tutoria->hora_reunion        = $data['hora_reunion'];
-            $tutoria->enlace_reunion      = $data['enlace_reunion'];
-            $tutoria->estado              = $data['estado'];
-            $tutoria->capacidad_maxima    = $data['capacidad_maxima'];
-            $tutoria->materia_id          = $data['materia_id'];
-            $tutoria->tutor_id            = $data['tutor_id'];
 
-            if($tutoria->save()){
+            $tutoria->temas = $data['temas'];
+            $tutoria->fecha_reunion = $data['fecha_reunion'];
+            $tutoria->hora_reunion = $data['hora_reunion'];
+            $tutoria->enlace_reunion = $data['enlace_reunion'];
+            $tutoria->estado = $data['estado'];
+            $tutoria->capacidad_maxima = $data['capacidad_maxima'];
+            $tutoria->materia_id = $data['materia_id'];
+            $tutoria->tutor_id = $data['tutor_id'];
+
+            if ($tutoria->save()) {
                 return response([
-                    'status'   => true,
+                    'status' => true,
                     'tutoria' => $tutoria,
                 ]);
-            }else{
+            } else {
                 return response([
                     'status' => false,
-                    'msg'    => 'Ocurrio un error al intentar actualizar la tutoria'
-                ],403);
+                    'msg' => 'Ocurrio un error al intentar actualizar la tutoria'
+                ], 403);
             }
-        }else{
+        } else {
             return response([
                 'status' => false,
-                'msg'    => 'No se pudo obtener la información del tutoria'
-            ],404);
+                'msg' => 'No se pudo obtener la información del tutoria'
+            ], 404);
         }
     }
 
@@ -175,16 +210,16 @@ class TutoriaController extends Controller
      */
     public function destroy(TutoriasDisponibles $tutoria)
     {
-        if($tutoria->delete()){
+        if ($tutoria->delete()) {
             return response([
-                'status'=> true,
-                'msg'   => "Se ha eliminado la tutoria"
+                'status' => true,
+                'msg' => "Se ha eliminado la tutoria"
             ]);
-        }else{
+        } else {
             return response([
-                'status'=> false,
-                'msg'   => "No fue posible eliminar la tutoria"
-            ],403);
+                'status' => false,
+                'msg' => "No fue posible eliminar la tutoria"
+            ], 403);
         }
     }
 }

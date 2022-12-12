@@ -27,8 +27,6 @@ class GuardarTutoriaRequest extends FormRequest
             'temas' => "nullable",
             'fecha_reunion' => "required",
             'hora_reunion' => "required",
-            'enlace_reunion' => "required",
-            'estado' => "nullable",
             'capacidad_maxima' => "required",
             'materia_id' => "required",
             'tutor_id' => "required"
