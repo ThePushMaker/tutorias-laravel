@@ -22,7 +22,7 @@ class HomeController extends Controller
             return response([
                 'status'   => true,
                 'msg'   => 'Iniciando sesión...',
-                'tipo_cuenta'  => 'alumno',
+                'tipo_cuenta'  => $alumno->tipo_cuenta,
                 'usuario'  => $alumno,
                 // 'data'  => $data
             ]);
