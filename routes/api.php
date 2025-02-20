@@ -10,6 +10,7 @@ use App\Http\Controllers\SesionController;
 use App\Http\Controllers\SolicitudTutoriaController;
 use App\Http\Controllers\TutoriaController;
 use App\Http\Controllers\TutorMateriaController;
+use App\Http\Controllers\ZoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -102,3 +105,8 @@ Route::get('solicitudes_aceptadas/{tutor_id}', [SolicitudTutoriaController::clas
 
 //obtener todas las tutorias que imparte  un tutor (que el ha creado) :para mis tutorias vista
 Route::get('tutorias_creadas/{tutor_id}', [TutoriaController::class, 'getTutoriasCreadas']);
+
+
+// zoom tests
+Route::get('/zoom/users', [ZoomController::class, 'getUsers']);
+Route::post('/zoom/meeting/{userId}', [ZoomController::class, 'createMeeting']);
