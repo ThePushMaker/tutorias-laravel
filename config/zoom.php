@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'api_key' => env('ZOOM_CLIENT_KEY'),
+    'api_key' => env('ZOOM_CLIENT_ID'),
     'api_secret' => env('ZOOM_CLIENT_SECRET'),
     'base_url' => 'https://api.zoom.us/v2/',
     'token_life' => 60 * 60 * 24 * 7, // In seconds, default 1 week
