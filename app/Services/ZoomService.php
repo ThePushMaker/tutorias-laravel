@@ -23,10 +23,16 @@ class ZoomService
                         ->get("{$this->baseUrl}/users");
 
         if ($response->successful()) {
-            return $response->json();
+            return $response->json()['users'] ?? [];
         }
 
         throw new \Exception('Error al obtener usuarios de Zoom: ' . $response->body());
+    }
+    
+    public function getFirstUser()
+    {
+        $users = $this->getUsers();
+        return $users[0] ?? null;
     }
 
     public function createMeeting($userId, $data)

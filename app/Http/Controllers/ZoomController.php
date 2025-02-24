@@ -29,8 +29,8 @@ class ZoomController extends Controller
     public function createMeeting($userId, $data)
     {
         try {
-            $users = $this->zoomService->getUsers();
-            return response()->json($users);
+            $meeting = $this->zoomService->createMeeting($userId, $data);
+            return response()->json($meeting);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

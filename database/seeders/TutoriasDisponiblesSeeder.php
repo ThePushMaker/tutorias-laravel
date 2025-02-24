@@ -2,13 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Services\ZoomService;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use MacsiDigital\Zoom\Facades\Zoom;
+// use MacsiDigital\Zoom\Facades\Zoom;
 
 class TutoriasDisponiblesSeeder extends Seeder
 {
+    protected $zoomService;
+    
+    public function __construct(ZoomService $zoomService)
+    {
+        $this->zoomService = $zoomService;
+    }
+    
     /**
      * Run the database seeds.
      *
@@ -18,32 +26,65 @@ class TutoriasDisponiblesSeeder extends Seeder
     {
         // TutoriasDisponibles::factory(50)->create();
 
-        $user = Zoom::user()->first();
-        $meeting = Zoom::meeting()->make([
+        // $user = Zoom::user()->first();
+        $user = $this->zoomService->getFirstUser();
+        
+        if(!$user) {
+            throw new \Exception('No se encontró ningun usuario en Zoom.');
+        }
+        
+        $meetingData = [
             'topic' => 'Tutoria: test',
             'type' => 8,
             'start_time' => new Carbon("now"),
-            // best to use a Carbon instance here.
             'duration' => 60,
-        ]);
+            'recurrence' => [
+                'type' => 2, // 2 = Weekly
+                'repeat_interval' => 1, // 1 = Every week
+                'weekly_days' => "1", // 1 = Sunday, 2 = Monday, ..., 7 = Saturday
+                'end_times' => 5 // occurences 5 = 5 times
+            ],
+            'settings' => [
+                'join_before_host' => true,
+                'approval_type' => 1,
+                'registration_type' => 2,
+                'enforce_login' => false,
+                'waiting_room' => false,
+            ]
+        ];
+        
+        // $meeting = Zoom::meeting()->make([
+        //     'topic' => 'Tutoria: test',
+        //     'type' => 8,
+        //     'start_time' => new Carbon("now"),
+        //     // best to use a Carbon instance here.
+        //     'duration' => 60,
+        // ]);
 
-        $meeting->recurrence()->make([
-            'type' => 2,
-            'repeat_interval' => 0,
-            'weekly_days' => "0",
-            'end_times' => 5
-        ]);
+        // $meeting->recurrence()->make([
+        //     'type' => 2,
+        //     'repeat_interval' => 0,
+        //     'weekly_days' => "0",
+        //     'end_times' => 5
+        // ]);
 
-        $meeting->settings()->make([
-            'join_before_host' => true,
-            'approval_type' => 1,
-            'registration_type' => 2,
-            'enforce_login' => false,
-            'waiting_room' => false,
-        ]);
-        $user->meetings()->save($meeting);
+        // $meeting->settings()->make([
+        //     'join_before_host' => true,
+        //     'approval_type' => 1,
+        //     'registration_type' => 2,
+        //     'enforce_login' => false,
+        //     'waiting_room' => false,
+        // ]);
+        // $user->meetings()->save($meeting);
 
-        $join_url = $meeting->join_url;
+        // $join_url = $meeting->join_url;
+        
+        $meeting = $this->zoomService->createMeeting($user['id'], $meetingData);
+        $join_url = $meeting['join_url'] ?? null;
+        
+        if (!$join_url) {
+            throw new \Exception('No se pudo crear la reunion en Zoom.');
+        }
 
         $tutor=1;
         $materia=1;
