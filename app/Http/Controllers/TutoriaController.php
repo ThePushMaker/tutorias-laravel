@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActualizarTutoriaRequest;
 use App\Http\Requests\GuardarTutoriaRequest;
 use App\Models\Alumnos;
+use App\Models\AlumnosEnTutorias;
 use App\Models\Materias;
 use App\Models\TutoriasDisponibles;
-use App\Models\AlumnosEnTutorias;
+use App\Services\ZoomService;
 use Carbon\Carbon;
-use MacsiDigital\Zoom\Facades\Zoom;
+// use MacsiDigital\Zoom\Facades\Zoom;
 
 class TutoriaController extends Controller
 {
+    protected $zoomService;
+    
+    public function __construct(ZoomService $zoomService)
+    {
+        $this->zoomService = $zoomService;
+    }
 
     public function getTutoriasCreadas($tutor_id)
     {
@@ -75,59 +82,63 @@ class TutoriaController extends Controller
     {
         $data = $request->all();
 
-        $tutoria = TutoriasDisponibles::create([
-            'temas' => $data['temas'],
-            'fecha_reunion' => $data['fecha_reunion'],
-            'hora_reunion' => $data['hora_reunion'],
-            'estado' => 'Activa',
-            'capacidad_maxima' => $data['capacidad_maxima'],
-            'materia_id' => $data['materia_id'],
-            'tutor_id' => $data['tutor_id'],
-            'enlace_reunion' => ''
-        ]);
+        $materia = Materias::where("id", $data['materia_id'])->first();
 
-        if ($tutoria) {
-            $materia = Materias::where("id", $data['materia_id'])->first();
-
-            $user = Zoom::user()->first();
-            $meeting = Zoom::meeting()->make([
-                'topic' => 'Tutoria: ' . $materia->nombre,
-                'type' => 8,
-                'start_time' => new Carbon(Carbon::parse($data['fecha_reunion'] . ' ' . $data['hora_reunion'], 'America/Mazatlan')),
-                // best to use a Carbon instance here.
-                'duration' => 60,
+        $user = $this->zoomService->getFirstUser();
+        
+        if (!$user) {
+            return response([
+                'status' => false,
+                'msg' => 'No se pudo obtener el usuario de Zoom.'
             ]);
-
-            $meeting->recurrence()->make([
-                'type' => 2,
-                'repeat_interval' => 0,
-                'weekly_days' => "0",
-                'end_times' => 5
-            ]);
-
-            $meeting->settings()->make([
+        }
+        
+        $meetingData = [
+            'topic' => 'Tutoria: ' . $materia->nombre,
+            'type' => 8,
+            'start_time' => new Carbon(Carbon::parse($data['fecha_reunion'] . ' ' . $data['hora_reunion'], 'America/Mazatlan')),
+            'duration' => 60,
+            'recurrence' => [
+                'type' => 2, // 2 = Weekly
+                'repeat_interval' => 0, // 1 = Every week
+                'weekly_days' => "0", // 1 = Sunday, 2 = Monday, ..., 7 = Saturday
+                'end_times' => 5 // occurences 5 = 5 times
+            ],
+            'settings' => [
                 'join_before_host' => true,
                 'approval_type' => 1,
                 'registration_type' => 2,
                 'enforce_login' => false,
-                'waiting_room' => false,
+                'waiting_room' => false
+            ]
+        ];
+
+        $meeting = $this->zoomService->createMeeting($user['id'], $meetingData);
+        if ($meeting) {
+            $enlace_reunion = $meeting['join_url'] ?? '';
+            
+            $tutoria = TutoriasDisponibles::create([
+                'temas' => $data['temas'],
+                'fecha_reunion' => $data['fecha_reunion'],
+                'hora_reunion' => $data['hora_reunion'],
+                'estado' => 'Activa',
+                'capacidad_maxima' => $data['capacidad_maxima'],
+                'materia_id' => $data['materia_id'],
+                'tutor_id' => $data['tutor_id'],
+                'enlace_reunion' => $enlace_reunion
             ]);
 
-            if ($user->meetings()->save($meeting)) {
-                $tutoria->enlace_reunion = $meeting->join_url;
-
-                if($tutoria->save()) {
-                    return response([
-                        'status' => true,
-                        'tutoria' => $tutoria,
-                    ]);
-                } 
+            if($tutoria->save()) {
+                return response([
+                    'status' => true,
+                    'tutoria' => $tutoria,
+                ]);
             }
         }
 
         return response([
             'status' => false,
-            'msg' => 'Ocurrio un error al intentar guardar la tutoria'
+            'msg' => 'Ocurrio un error al intentar guardar la tutoria.'
         ], 403);
     }
 

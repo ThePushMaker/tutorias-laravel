@@ -30,7 +30,7 @@ class TutoriasDisponiblesSeeder extends Seeder
         $user = $this->zoomService->getFirstUser();
         
         if(!$user) {
-            throw new \Exception('No se encontró ningun usuario en Zoom.');
+            throw new \Exception('No se pudo obtener el usuario de Zoom.');
         }
         
         $meetingData = [
