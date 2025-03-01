@@ -6,7 +6,6 @@ use App\Services\ZoomService;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-// use MacsiDigital\Zoom\Facades\Zoom;
 
 class TutoriasDisponiblesSeeder extends Seeder
 {
@@ -26,7 +25,6 @@ class TutoriasDisponiblesSeeder extends Seeder
     {
         // TutoriasDisponibles::factory(50)->create();
 
-        // $user = Zoom::user()->first();
         $user = $this->zoomService->getFirstUser();
         
         if(!$user) {
@@ -52,32 +50,6 @@ class TutoriasDisponiblesSeeder extends Seeder
                 'waiting_room' => false,
             ]
         ];
-        
-        // $meeting = Zoom::meeting()->make([
-        //     'topic' => 'Tutoria: test',
-        //     'type' => 8,
-        //     'start_time' => new Carbon("now"),
-        //     // best to use a Carbon instance here.
-        //     'duration' => 60,
-        // ]);
-
-        // $meeting->recurrence()->make([
-        //     'type' => 2,
-        //     'repeat_interval' => 0,
-        //     'weekly_days' => "0",
-        //     'end_times' => 5
-        // ]);
-
-        // $meeting->settings()->make([
-        //     'join_before_host' => true,
-        //     'approval_type' => 1,
-        //     'registration_type' => 2,
-        //     'enforce_login' => false,
-        //     'waiting_room' => false,
-        // ]);
-        // $user->meetings()->save($meeting);
-
-        // $join_url = $meeting->join_url;
         
         $meeting = $this->zoomService->createMeeting($user['id'], $meetingData);
         $join_url = $meeting['join_url'] ?? null;
